@@ -35,7 +35,10 @@ namespace Web
 		{
 			AreaRegistration.RegisterAllAreas();
 
-			Store = new DocumentStore {ConnectionStringName = "RavenDB"};
+			Store = new DocumentStore
+			        	{
+			        		ConnectionStringName = "RavenDB"
+			        	}.Initialize();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
