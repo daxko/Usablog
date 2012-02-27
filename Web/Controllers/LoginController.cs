@@ -66,7 +66,7 @@ namespace Web.Controllers
 			if (user == null)
 				return false;
 
-    		return new Authenticator().PasswordsMatch(password, user.HashedPassword);
+    		return new Authenticator().PasswordsMatch(password, user.HashedPassword, user.PasswordSalt);
     	}
 
     	private User FindUser(string email)

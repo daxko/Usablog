@@ -4,11 +4,12 @@ namespace Web.Models
 	{
 		private User() { }
 
-		public User(string email, string hashedPassword)
+		public User(string email, string hashedPassword, byte[] passwordSalt)
 		{
 			Id = UserId(email);
 			Email = email;
 			HashedPassword = hashedPassword;
+			PasswordSalt = passwordSalt;
 		}
 
 		public static string UserId(string email)
@@ -21,5 +22,7 @@ namespace Web.Models
 		public string Email { get; private set; }
 
 		public string HashedPassword { get; set; }
+
+		public byte[] PasswordSalt { get; set; }
 	}
 }
