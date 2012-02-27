@@ -40,13 +40,13 @@ namespace Web.Controllers
     		return Redirect(returnUrl);
 		}
 
-		//[Authorize]
+		[Authorize]
 		public ActionResult New()
 		{
 			return View();
 		}
 
-		//[Authorize]
+		[Authorize]
 		public ActionResult Create(string email, string password)
 		{
 			try
