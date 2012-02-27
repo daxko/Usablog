@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Raven.Client;
+using Raven.Client.Document;
 
 namespace Web
 {
@@ -33,8 +35,12 @@ namespace Web
 		{
 			AreaRegistration.RegisterAllAreas();
 
+			Store = new DocumentStore {ConnectionStringName = "RavenDB"};
+
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 		}
+
+		public static IDocumentStore Store { get; private set; }
 	}
 }
