@@ -8,32 +8,9 @@ namespace Web.Models
 		private readonly byte[] Salt = new byte[] {5, 5, 79, 6, 8, 10, 5, 2};
 		internal const int HashIterations = 5000;
 
-		public bool IsAuthentic(string email, string password)
-		{
-			var user = FindUser(email);
-			if (user == null)
-				return false;
-			var hashed = user.HashedPassword;
-
-			return PasswordsMatch(password, hashed);
-		}
-
-		private User FindUser(string email)
-		{
-			using (var session = MvcApplication.Store.OpenSession())
-				return session.Load<User>(User.UserId(email));
-		}
-
 		public User Create(string email, string password)
 		{
-			var user = new User(email, Hash(password));
-			using (var session = MvcApplication.Store.OpenSession())
-			{
-				session.Store(user);
-				session.SaveChanges();
-			}
-
-			return user;
+			return new User(email, Hash(password));
 		}
 
 		public string Hash(string rawPassword)
@@ -42,7 +19,7 @@ namespace Web.Models
 			return Convert.ToBase64String(hashed);
 		}
 
-		private bool PasswordsMatch(string rawPassword, string hashedPassword)
+		public bool PasswordsMatch(string rawPassword, string hashedPassword)
 		{
 			var hashedBytes = Convert.FromBase64String(hashedPassword);
 			var hashed = DoHash(rawPassword);
