@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Web.Models.Study>
+
+@{
+	ViewBag.Title = "Studies";
+}
+
+<h2>Studies</h2>
+
+<a href="@Url.Action("Create")">Create a new study</a>
+
+<ul>
+@foreach (var study in Model)
+{
+	<li><a href="@Url.Action("Details", new { Id = study.Id })">@study.Name</a></li>
+}
+</ul>

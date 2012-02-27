@@ -1,0 +1,30 @@
+﻿@model Web.Models.Session
+
+@{
+	ViewBag.Title = "Create a new session";
+}
+
+<h2>Create a new session</h2>
+
+<form method="POST" action="@Url.Action("Create")">
+	<input type="hidden" name="studyId" value="@Model.StudyId"/>
+	<div class="form-field">
+		<label for="name">Session Name</label>
+		<input id="name" name="name" type="text" value="@Model.Name" maxlength="255" required="true" />
+	</div>
+	<div class="form-field">
+		<label for="facilitator">Facilitator</label>
+		<input id="facilitator" name="facilitator" type="text" value="@Model.Facilitator" maxlength="255" />
+	</div>
+	<div class="form-field">
+		<label for="respondantName">Respondant</label>
+		<input id="respondantName" name="respondantName" type="text" value="@Model.RespondantName" maxlength="255" />
+	</div>
+	<div class="form-field">	
+		<label for="notes">Notes</label>
+		<textarea id="notes" name="notes">@Model.Notes</textarea>
+	</div>
+	<div class="form-controls">
+		<input name="submit" type="submit" value="Create" />
+	</div>
+</form>

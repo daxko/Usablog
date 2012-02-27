@@ -1,0 +1,18 @@
+﻿@model Web.Models.Study
+
+@{
+	ViewBag.Title = "Study - " + Model.Name;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<section name="sessions">
+	<a href="@Url.Action("Create", "Sessions", new { StudyId = Model.Id })">Create a new session for this study</a>
+
+	<ul>
+	@foreach (Web.Models.Session session in ViewBag.Sessions)
+	{
+		<li><a href="@Url.Action("Details", "Sessions", new { Id = session.Id})">@session.Name</a></li>
+	}
+	</ul>
+</section>
