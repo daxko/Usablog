@@ -2,7 +2,6 @@
 _ReSharper.*
 *.suo
 *.sln.cache
-src/*/obj/*
-src/*/bin/*
+*/obj/*
+*/bin/*
 !/lib/*/bin/*
-
