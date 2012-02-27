@@ -56,8 +56,8 @@ namespace Web.Controllers
 				session.SaveChanges();
 			}
 
-			FormsAuthentication.SetAuthCookie(email, false);
-			return SendThemOnTheirWay(null);
+    		ViewBag.Message = string.Format("Created {0}", email);
+    		return View("New");
 		}
 
     	private bool IsAuthentic(string email, string password)
