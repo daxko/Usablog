@@ -133,6 +133,7 @@
   <ItemGroup>
     <Content Include="Views\Sessions\Create.cshtml" />
   </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
