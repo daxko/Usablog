@@ -49,15 +49,23 @@ namespace Web.Controllers
 		//[Authorize]
 		public ActionResult Create(string email, string password)
 		{
-			var user = new Authenticator().Create(email, password);
-			using (var session = MvcApplication.Store.OpenSession())
+			try
 			{
-				session.Store(user);
-				session.SaveChanges();
-			}
+				var user = new Authenticator().Create(email, password);
+				using (var session = MvcApplication.Store.OpenSession())
+				{
+					session.Store(user);
+					session.SaveChanges();
+				}
 
-			ViewBag.Message = string.Format("Created {0}", email);
-			return View("New");
+				ViewBag.Message = string.Format("Created {0}", email);
+				return View("New");
+			}
+			catch (System.Exception ex)
+			{
+				MvcApplication.Errors.Add(ex);
+				throw;
+			}
 		}
 
     	private bool IsAuthentic(string email, string password)
