@@ -4,7 +4,8 @@
     <title>@ViewBag.Title</title>
 </head>
 
-<body>
-    @RenderBody()
-</body>
+	<body>
+		<a href="@Url.Action("Logout", "Login")">Log out</a>
+		@RenderBody()
+	</body>
 </html>
