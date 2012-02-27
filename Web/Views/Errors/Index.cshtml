@@ -1,0 +1,12 @@
+﻿@model dynamic
+
+@{
+	ViewBag.Title = "Errors";
+}
+
+<h2>Here's what's been going wrong:</h2>
+<ul>
+	@foreach(Exception error in ViewBag.Errors){
+		<li>@error.ToString()</li>
+	}
+</ul>

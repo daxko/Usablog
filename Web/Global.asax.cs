@@ -44,6 +44,20 @@ namespace Web
 			RegisterRoutes(RouteTable.Routes);
 		}
 
+		protected void Application_Error(object sender, EventArgs e)
+		{
+			try
+			{
+				var exception = Server.GetLastError();
+				Errors.Add(exception);
+			}
+			catch (Exception)
+			{
+				// this would stink
+			}
+		}
+
+		public static IList<Exception> Errors = new List<Exception>(); 
 		public static IDocumentStore Store { get; private set; }
 	}
 }
