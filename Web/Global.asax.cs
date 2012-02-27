@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Raven.Abstractions.Data;
 using Raven.Client;
 using Raven.Client.Document;
 
@@ -35,10 +36,15 @@ namespace Web
 		{
 			AreaRegistration.RegisterAllAreas();
 
+			var parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
+			parser.Parse();
+
 			Store = new DocumentStore
-			        	{
-			        		ConnectionStringName = "RavenDB"
-			        	}.Initialize();
+			{
+				ApiKey = parser.ConnectionStringOptions.ApiKey,
+				Url = parser.ConnectionStringOptions.Url,
+			};
+			Store.Initialize();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
