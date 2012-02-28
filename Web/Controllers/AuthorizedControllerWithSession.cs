@@ -4,7 +4,7 @@ using Raven.Client;
 namespace Web.Controllers
 {
 	[Authorize]
-	public class ControllerBase : Controller
+	public class AuthorizedControllerWithSession : Controller
 	{
 		private IDocumentSession _documentSession;
 
