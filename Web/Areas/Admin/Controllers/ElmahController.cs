@@ -6,6 +6,7 @@ using Elmah;
 namespace Web.Areas.Admin.Controllers 
 {
     //[Authorize(Roles = "Admin")]
+	[Authorize]
     public class ElmahController : Controller
     {
         public ActionResult Index()
