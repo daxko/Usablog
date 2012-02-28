@@ -4,9 +4,13 @@
 	ViewBag.Title = "Studies";
 }
 
-<h2>Your Studies</h2>
-
-<a href="@Url.Action("Create")">Create a new study</a>
+<h2>
+	Your Studies 
+	<button button="button" class="btn btn-link" href="@Url.Action("Create")">
+		<i class="icon-plus"></i>
+		Create a new study
+	</button>
+</h2>
 
 <ul>
 @foreach (var study in Model)
