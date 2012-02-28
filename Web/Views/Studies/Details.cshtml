@@ -8,14 +8,19 @@
 
 <div class="row">
 	<section name="sessions" class="span6 well">
-		<h2>Sessions <button type="button" id="add-session" class="btn btn-small pull-right"><i class="icon-plus"></i>Add new session</button></h2>
+		<h2>
+			Sessions
+			<button type="button" class="btn btn-link btn-small" href="@Url.Action("Create", "Sessions", new { StudyId = Model.Id })">
+				<i class="icon-plus"></i>Add new session
+			</button>
+		</h2>
 
 		<ul>
 			@foreach (Web.Models.Session session in ViewBag.Sessions)
 			{
 				<li>
-					<a href="@Url.Action("Details", "Sessions", new { Id = session.Id})">
-						@(string.IsNullOrWhiteSpace(session.DisplayName()) ? session.Id : session.DisplayName() )
+					<a href="@Url.Action("Details", "Sessions", new { Id = session.Id })">
+						@(string.IsNullOrWhiteSpace(session.DisplayName()) ? session.Id : session.DisplayName())
 					</a>
 				</li>
 			}
@@ -26,11 +31,3 @@
 	</section>
 
 </div>
-
-<script>
-	$(function () {
-		$("#add-session").click(function () {
-			window.location = "@Url.Action("Create", "Sessions", new { StudyId = Model.Id })";
-		});
-	});
-</script>
