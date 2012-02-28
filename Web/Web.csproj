@@ -150,6 +150,7 @@
     <Content Include="Scripts\jquery-ui-1.8.18.custom.min.js" />
     <Content Include="Scripts\jquery.mvc.js" />
     <Content Include="Scripts\site.js" />
+    <None Include="Scripts\usablog\session.ejs" />
     <Content Include="Scripts\usablog\session.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
