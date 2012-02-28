@@ -4,43 +4,59 @@
 	ViewBag.Title = "Create a new session";
 }
 
-<h2>Create a new session</h2>
+<h2>Create a New Session</h2>
 
 <form method="POST" action="@Url.Action("Create")">
-	<div class="form-field">
-		<label for="study">Study</label>
-		<span id="study" class="immutable-text-field">@ViewBag.Study.Name</span>
-		<input id="studyId" name="studyId" type="hidden" value="@Model.StudyId"/>
-	</div>
-	<div class="form-field">
-		<label for="facilitator">Facilitator</label>
-		<input id="facilitator" name="facilitator" type="text" value="@Model.Facilitator" maxlength="255" />
-	</div>
-	<fieldset>
-		<legend>Respondent</legend>
-		<div class="form-field">
-			<label for="respondentName">Name</label>
-			<input id="respondentName" name="respondentName" type="text" required="true" class="required" value="@Model.RespondentName" maxlength="255"  />
+	<span>Study: @ViewBag.Study.Name</span>
+	<input id="studyId" name="studyId" type="hidden" value="@Model.StudyId"/>
+
+	<div class="row">
+		<div class="span4">
+			<div class="well">
+				<fieldset>
+					<legend>Respondent</legend>
+					<div class="form-field">
+						<label for="respondentName">Name</label>
+						<input id="respondentName" name="respondentName" type="text" required="true" class="required" value="@Model.RespondentName" maxlength="255"  />
+					</div>
+					<div class="form-field">
+						<label for="respondentOrganization">Organization</label>
+						<input id="respondentOrganization" name="respondentOrganization" type="text" value="@Model.RespondentOrganization" maxlength="255" />
+					</div>
+					<div class="form-field">
+						<label for="respondentUrl">URL</label>
+						<input id="respondentUrl" name="respondentUrl" type="text" value="@Model.RespondentUrl" maxlength="1024" />
+					</div>
+				</fieldset>
+			</div>
 		</div>
-		<div class="form-field">
-			<label for="respondentOrganization">Organization</label>
-			<input id="respondentOrganization" name="respondentOrganization" type="text" value="@Model.RespondentOrganization" maxlength="255" />
+		<div class="span4">
+			<div class="well">
+				<fieldset>
+					<legend>Scheduling</legend>
+				
+					<label for="scheduledStart">Date</label>
+					<input id="scheduledStart" name="scheduledStart" type="text" value="@(Model.ScheduledStart.HasValue ? Model.ScheduledStart.Value.ToShortDateString() : string.Empty)"/>
+
+					<label for="facilitator">Facilitator</label>
+					<input id="facilitator" name="facilitator" type="text" value="@Model.Facilitator" maxlength="255" />
+				</fieldset>
+			</div>
 		</div>
-		<div class="form-field">
-			<label for="respondentUrl">URL</label>
-			<input id="respondentUrl" name="respondentUrl" type="text" value="@Model.RespondentUrl" maxlength="1024" />
+		<div class="span4">
+			<div class="well">
+				<fieldset>
+					<legend>Meta</legend>
+					<label for="notes">Notes</label>
+					<textarea id="notes" name="notes">@Model.Notes</textarea>
+
+					<label for="videoUrl">Video URL</label>
+					<input id="videoUrl" name="videoUrl" type="text" value="@Model.VideoUrl" maxlength="1024" />
+				</fieldset>
+			</div>
 		</div>
-	</fieldset>
-	<div class="form-field">	
-		<label for="videoUrl">Video URL</label>
-		<input id="videoUrl" name="videoUrl" type="text" value="@Model.VideoUrl" maxlength="1024" />
 	</div>
-	<div class="form-field">	
-		<label for="notes">Notes</label>
-		<textarea id="notes" name="notes">@Model.Notes</textarea>
-	</div>
-	<div class="form-controls">
-		<button type="submit" class="btn btn-primary">Save</button>
-		<button type="button" class="btn btn-link" href="@Url.Action("Details", "Studies", new { id = Model.StudyId })">Cancel</button>
-	</div>
+	
+	<button type="submit" class="btn btn-primary">Save</button>
+	<button type="button" class="btn btn-link" href="@Url.Action("Details", "Studies", new { id = Model.StudyId })">Cancel</button>
 </form>
