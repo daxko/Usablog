@@ -1,12 +1,11 @@
 ﻿using System.Web.Mvc;
-using Raven.Client;
 using Raven.Client.Linq;
 using System.Linq;
 using Web.Models;
 
 namespace Web.Controllers
 {
-	public class StudiesController : Controller
+	public class StudiesController : ControllerBase
 	{
 		//
 		// GET: /Studies/
@@ -23,9 +22,7 @@ namespace Web.Controllers
 		public ActionResult Details(string id)
 		{
 			var study = DocumentSession.Load<Study>(id);
-			ViewBag.Sessions = DocumentSession.Query<Session>()
-									   .Where(x => x.StudyId == id)
-									   .ToList();
+			ViewBag.Sessions = DocumentSession.Query<Session>().Where(x => x.StudyId == id).ToList();
 			return View(study);
 		}
 
@@ -57,16 +54,32 @@ namespace Web.Controllers
 			}
 		}
 
-		private IDocumentSession _documentSession;
-		protected IDocumentSession DocumentSession
+		//
+		// GET: /Studies/Create
+
+		public ActionResult Rename(string id)
 		{
-			get
+			var study = DocumentSession.Load<Study>(id);
+			return View(study);
+		}
+
+		//
+		// POST: /Studies/Create
+
+		[HttpPost]
+		public ActionResult Rename(string id, string name)
+		{
+			var study = DocumentSession.Load<Study>(id);
+			study.Name = name;
+
+			try
 			{
-				if (_documentSession == null)
-				{
-					_documentSession = MvcApplication.Store.OpenSession();
-				}
-				return _documentSession;
+				DocumentSession.SaveChanges();
+				return RedirectToAction("Details", new { id = id });
+			}
+			catch
+			{
+				return View(study);
 			}
 		}
 	}

@@ -1,9 +1,11 @@
 ﻿@model Web.Models.Session
 
 @{
-	ViewBag.Title = "Session Log - " + Model.Name;
+	ViewBag.Title = "Session Log - " + Model.DisplayName();
 }
 
 <h2>@ViewBag.Title</h2>
 
+<a href="@Url.Action("Details", "Studies", new { id = Model.StudyId })">Study: @ViewBag.Study.Name</a>
+<a href="@Url.Action("Edit", new { id = Model.Id })">Edit session</a>
 

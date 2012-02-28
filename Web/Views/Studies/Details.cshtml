@@ -4,15 +4,21 @@
 	ViewBag.Title = "Study - " + Model.Name;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2> (<a href="@Url.Action("Rename", new { id = Model.Id })">rename</a>)
 
 <section name="sessions">
+	<h2>Sessions</h2>
+
 	<a href="@Url.Action("Create", "Sessions", new { StudyId = Model.Id })">Create a new session for this study</a>
 
 	<ul>
-	@foreach (Web.Models.Session session in ViewBag.Sessions)
-	{
-		<li><a href="@Url.Action("Details", "Sessions", new { Id = session.Id})">@session.Name</a></li>
-	}
+		@foreach (Web.Models.Session session in ViewBag.Sessions)
+		{
+			<li>
+				<a href="@Url.Action("Details", "Sessions", new { Id = session.Id})">
+					@(string.IsNullOrWhiteSpace(session.DisplayName()) ? session.Id : session.DisplayName() )
+				</a>
+			</li>
+		}
 	</ul>
 </section>

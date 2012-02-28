@@ -1,0 +1,17 @@
+﻿@model Web.Models.Study
+
+@{
+	ViewBag.Title = "Rename Study";
+}
+
+<h2>Rename Study</h2>
+
+<form method="POST" action="@Url.Action("Rename", new { id = Model.Id })">
+	<div class="form-field">
+		<label for="name">Study Name</label>
+		<input id="name" name="name" type="text" value="@Model.Name" maxlength="255" required="true" />
+	</div>
+	<div class="form-controls">
+		<input name="submit" type="submit" value="Save" />
+	</div>
+</form>

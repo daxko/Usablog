@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Web.Models
 {
@@ -6,20 +7,24 @@ namespace Web.Models
 	{
 		private Session() {}
 
-		public Session(string studyId, string name)
+		public Session(string studyId)
 		{
 			StudyId = studyId;
-			Name = name;
 		}
 
 		public string Id { get; private set; }
 		public string StudyId { get; private set; }
-		public string Name { get; set; }
+
+		public DateTime? ScheduledStart { get; set; }
 
 		public string Notes { get; set; }
 
 		public string Facilitator { get; set; }
 		public string RespondantName { get; set; }
+		public string RespondantOrganization { get; set; }
+		public string RespondantUrl { get; set; }
+
+		public string VideoUrl { get; set; }
 
 		public DateTime? StartedAt { get; set; }
 		public DateTime? EndedAt { get; set; }
@@ -37,7 +42,24 @@ namespace Web.Models
 				return SessionStatus.InProgress;
 			}
 		}
+
+		public string DisplayName()
+		{
+			var sb = new StringBuilder();
+
+			sb.Append(RespondantName);
+
+			DateTime? sessionDate = StartedAt ?? ScheduledStart;
+			if (sessionDate.HasValue)
+			{
+				sb.AppendFormat(" ({0})", sessionDate.Value.ToShortDateString());
+			}
+
+			return sb.ToString();
+		}
 	}
+
+	
 
 	public enum SessionStatus
 	{

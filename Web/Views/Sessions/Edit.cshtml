@@ -1,12 +1,12 @@
 ﻿@model Web.Models.Session
 
 @{
-	ViewBag.Title = "Create a new session";
+	ViewBag.Title = "Edit Session - " + Model.DisplayName();
 }
 
-<h2>Create a new session</h2>
+<h2>@ViewBag.Title</h2>
 
-<form method="POST" action="@Url.Action("Create")">
+<form method="POST" action="@Url.Action("Edit", new { id = Model.Id })">
 	<div class="form-field">
 		<label for="study">Study</label>
 		<span id="study" class="immutable-text-field">@ViewBag.Study.Name</span>
@@ -40,6 +40,6 @@
 		<textarea id="notes" name="notes">@Model.Notes</textarea>
 	</div>
 	<div class="form-controls">
-		<input name="submit" type="submit" value="Create" />
+		<input name="submit" type="submit" value="Save" /> or <a href="@Url.Action("Details", new { id = Model.Id})">Cancel</a>
 	</div>
 </form>
