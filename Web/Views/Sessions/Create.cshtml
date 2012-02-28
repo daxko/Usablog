@@ -40,6 +40,6 @@
 		<textarea id="notes" name="notes">@Model.Notes</textarea>
 	</div>
 	<div class="form-controls">
-		<input name="submit" type="submit" value="Create" />
+		<input name="submit" type="submit" value="Create" /> or <a href="@Url.Action("Details", "Studies", new { id = Model.StudyId })">Cancel</a>
 	</div>
 </form>

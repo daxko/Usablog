@@ -12,6 +12,6 @@
 		<input id="name" name="name" type="text" value="@Model.Name" maxlength="255" required="true" />
 	</div>
 	<div class="form-controls">
-		<input name="submit" type="submit" value="Save" />
+		<input name="submit" type="submit" value="Save" /> or <a href="@Url.Action("Details", new { id = Model.Id })">Cancel</a>
 	</div>
 </form>
