@@ -4,12 +4,22 @@
 	ViewBag.Title = "Login";
 	Layout = null; // _Layout assumes you're logged in
 }
+<!DOCTYPE html>
+<html>
+	<head>
+		@Html.Partial("htmlhead")
+	</head>
 
-<form method="POST" action="@Url.Action("Index","Login", new { ReturnUrl = Request.Params["ReturnUrl"] })">
-	<label for="email">email</label>
-	<input type="text" name="email" tabindex="1"/>
-	<label for="password">password</label>
-	<input type="password" name="password" tabindex="2"/>
-	<div class="message"><span class="error">@ViewBag.ErrorText</span></div>
-	<button type="submit">Log In</button>
-</form>
+	<body>
+		<form method="POST" action="@Url.Action("Index","Login", new { ReturnUrl = Request.Params["ReturnUrl"] })">
+		<label for="email">email</label>
+		<input type="text" name="email" tabindex="1"/>
+		<label for="password">password</label>
+		<input type="password" name="password" tabindex="2"/>
+		<div class="message"><span class="error">@ViewBag.ErrorText</span></div>
+		<button type="submit">Log In</button>
+	</form>
+
+	</body>
+</html>
+
