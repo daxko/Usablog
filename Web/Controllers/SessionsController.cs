@@ -36,9 +36,9 @@ namespace Web.Controllers
 			{
 				ScheduledStart = inputs.ScheduledStart,
 				Facilitator = inputs.Facilitator,
-				RespondantName = inputs.RespondantName,
-				RespondantOrganization = inputs.RespondantOrganization,
-				RespondantUrl = inputs.RespondantUrl,
+				RespondentName = inputs.RespondentName,
+				RespondentOrganization = inputs.RespondentOrganization,
+				RespondentUrl = inputs.RespondentUrl,
 				VideoUrl = inputs.VideoUrl,
 				Notes = inputs.Notes
 			};
@@ -77,9 +77,9 @@ namespace Web.Controllers
 
 			session.ScheduledStart = inputs.ScheduledStart;
 			session.Facilitator = inputs.Facilitator;
-			session.RespondantName = inputs.RespondantName;
-			session.RespondantOrganization = inputs.RespondantOrganization;
-			session.RespondantUrl = inputs.RespondantUrl;
+			session.RespondentName = inputs.RespondentName;
+			session.RespondentOrganization = inputs.RespondentOrganization;
+			session.RespondentUrl = inputs.RespondentUrl;
 			session.VideoUrl = inputs.VideoUrl;
 			session.Notes = inputs.Notes;			
 
@@ -101,9 +101,9 @@ namespace Web.Controllers
 			public string StudyId { get; set; }
 			public DateTime? ScheduledStart { get; set; }
 			public string Facilitator { get; set; }
-			public string RespondantName { get; set; }
-			public string RespondantOrganization { get; set; }
-			public string RespondantUrl { get; set; }
+			public string RespondentName { get; set; }
+			public string RespondentOrganization { get; set; }
+			public string RespondentUrl { get; set; }
 			public string VideoUrl { get; set; }
 			public string Notes { get; set; }
 		}
