@@ -5,7 +5,6 @@ namespace Web.Models
 {
 	public class Authenticator
 	{
-		private readonly byte[] Salt = new byte[] {5, 5, 79, 6, 8, 10, 5, 2};
 		internal const int HashIterations = 5000;
 
 		public User Create(string email, string password)
