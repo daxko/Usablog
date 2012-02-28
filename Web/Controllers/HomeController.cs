@@ -13,14 +13,4 @@ namespace Web.Controllers
 			return View();
 		}
 	}
-
-	public class ErrorsController : Controller
-	{
-		public ActionResult Index()
-		{
-			ViewBag.Errors = MvcApplication.Errors;
-
-			return View();
-		}
-	}
 }
