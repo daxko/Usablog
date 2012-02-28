@@ -4,6 +4,7 @@ using Web.Models;
 
 namespace Web.Controllers
 {
+	[ServeJsonForAjax]
 	public class SessionsController : AuthorizedControllerWithSession
 	{
 		//
