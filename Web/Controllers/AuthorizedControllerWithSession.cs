@@ -3,7 +3,8 @@ using Raven.Client;
 
 namespace Web.Controllers
 {
-	public class ControllerBase : Controller
+	[Authorize]
+	public class AuthorizedControllerWithSession : Controller
 	{
 		private IDocumentSession _documentSession;
 

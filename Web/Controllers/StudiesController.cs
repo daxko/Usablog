@@ -5,7 +5,7 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-	public class StudiesController : ControllerBase
+	public class StudiesController : AuthorizedControllerWithSession
 	{
 		//
 		// GET: /Studies/

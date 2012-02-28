@@ -20,9 +20,9 @@ namespace Web.Models
 		public string Notes { get; set; }
 
 		public string Facilitator { get; set; }
-		public string RespondantName { get; set; }
-		public string RespondantOrganization { get; set; }
-		public string RespondantUrl { get; set; }
+		public string RespondentName { get; set; }
+		public string RespondentOrganization { get; set; }
+		public string RespondentUrl { get; set; }
 
 		public string VideoUrl { get; set; }
 
@@ -47,7 +47,7 @@ namespace Web.Models
 		{
 			var sb = new StringBuilder();
 
-			sb.Append(RespondantName);
+			sb.Append(RespondentName);
 
 			DateTime? sessionDate = StartedAt ?? ScheduledStart;
 			if (sessionDate.HasValue)

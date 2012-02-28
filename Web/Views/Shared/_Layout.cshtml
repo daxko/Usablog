@@ -1,14 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-	<title>@ViewBag.Title</title>
-	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")"/>
-</head>
+	<head>
+		@Html.Partial("htmlhead")
+		@RenderSection("head", false)
+	</head>
 
 	<body>
-		<a href="@Url.Action("Logout", "Login")">Log out</a>
-		<a href="@Url.Action("Index", "Studies")">Studies</a>
+		@Html.Partial("nav")
 		@RenderBody()
 	</body>
 </html>
