@@ -101,6 +101,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ElmahController.cs" />
     <Compile Include="Controllers\AuthorizedControllerWithSession.cs" />
+    <Compile Include="EnsureHandledErrorsGetLogged.cs" />
     <Compile Include="Models\Authenticator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
