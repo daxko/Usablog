@@ -8,10 +8,18 @@
 
 <form method="POST" action="@Url.Action("Rename", new { id = Model.Id })">
 	<div class="form-field">
-		<label for="name">Study Name</label>
 		<input id="name" name="name" type="text" value="@Model.Name" maxlength="255" required="true" />
 	</div>
 	<div class="form-controls">
-		<input name="submit" type="submit" value="Save" /> or <a href="@Url.Action("Details", new { id = Model.Id })">Cancel</a>
+		<button type="submit" class="btn btn-primary">Save</button>
+		<button type="button" class="btn" id="cancel">Cancel</button>
 	</div>
 </form>
+
+<script>
+	$(function () {
+		$("#cancel").click(function() {
+			window.location = "@Url.Action("Details", new { id = Model.Id })";
+		});
+	})
+</script>

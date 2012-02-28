@@ -12,6 +12,15 @@
 		<input id="name" name="name" type="text" value="@Model.Name" maxlength="255" required="true" />
 	</div>
 	<div class="form-controls">
-		<input name="submit" type="submit" value="Create" /> or <a href="@Url.Action("Index")">Cancel</a>
+		<button type="submit" class="btn btn-primary">Save</button>
+		<button type="button" class="btn" id="cancel">Cancel</button>
 	</div>
 </form>
+
+<script>
+	$(function () {
+		$("#cancel").click(function() {
+			window.location = "@Url.Action("Index")";
+		});
+	})
+</script>
