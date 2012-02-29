@@ -2,7 +2,12 @@ $.Model('Session', {
 	 
 });
 
+$.Model('LogEntry', {
+	 
+});
+
 $.Controller('SessionController', {
+	
 	init: function(raw_el, opts) {
 
 		this.model = new Session(opts.modelJson);
@@ -11,23 +16,24 @@ $.Controller('SessionController', {
 		var self = this;
 		this.logEntries.bind("add", function(ev, newItems) {
 			for(var i in newItems)
-				self.itemAdded(newItems[i]);
-		});
-	},
-
-	itemAdded: function(item) {
-
-		var controller = this;
-		$.View("//scripts/usablog/session.tmpl", item, function (result) {
-			controller.element.append(result);
+				self.logEntryAdded(newItems[i]);
 		});
 		
-//		var html = $("<div/>");
-//		html.html(item.value);
-//		this.element.append(html);
+		this.log = $("<ol></ol>").addClass("log");
+		this.element.append(this.log);
+		
 	},
 
-	addItem: function() {
-		this.logEntries.push({ value: 'foo'});
+	logEntryAdded: function(item) {
+		var controller = this;
+		$.View("//scripts/usablog/logentry.tmpl", item, function (result) {
+			controller.log.append(result);
+		});
+	},
+
+	addLogEntry: function(value) {
+		var entry = new LogEntry({ value: value, timeStamp:new Date()});
+		
+		this.logEntries.push(entry);
 	}
 });
