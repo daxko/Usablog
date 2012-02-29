@@ -11,6 +11,7 @@ $.Model('Usablog.LogEntry',
 // prototype
 {
 	save:function () {
+		var entry = this;
 		$.ajax({
 			url:this.Class.createUrl,
 			type:'POST',
@@ -18,7 +19,9 @@ $.Model('Usablog.LogEntry',
 			contentType:'application/json',
 			data: JSON.stringify(this.serialize()),
 			error: function (jqXHR, textStatus, errorThrown){},
-			success: function (data, textStatus, jqXHR){}
+			success: function (data, textStatus, jqXHR) {
+				entry.init(data);
+			}
 		});
 	}
 });
