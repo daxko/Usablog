@@ -34,8 +34,8 @@ namespace Web.Controllers
 
     	private ActionResult SendThemOnTheirWay(string returnUrl)
 		{
-    		if (string.IsNullOrEmpty(returnUrl))
-    			return RedirectToAction("Index", "Home");
+			if (string.IsNullOrEmpty(returnUrl))
+				return RedirectToAction("Index", "Studies");
 
     		return Redirect(returnUrl);
 		}
