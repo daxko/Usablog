@@ -38,6 +38,18 @@
 		window.timer = new Usablog.Timer({startedAt: window.sessionStartTime});
 		window.timerController = new Usablog.TimerController($("#timer"), { timer: window.timer });
 
+		var loadOtherEntries = function(sessionController) {
+			$.ajax({
+				url:"@Url.Action("Index", "LogEntry", new { sessionId = Model.Id })",
+				type: 'GET',
+				dataType: 'json',
+				cache:false,
+				success: function (data) {
+					sessionController.otherEntries(data);
+				}
+			});
+		};
+
 		$.ajax({
 			url:"@Url.Action("Edit", new { id = Model.Id })",
 			type: 'GET',
@@ -46,8 +58,11 @@
 			success: function (data) {
 				window.session = new Usablog.Session(data);
 				window.sessionController = new Usablog.SessionController($("#details"), { model: window.session });
+				loadOtherEntries(window.sessionController);
 			}
 		});
+		
+		
 		
 
 	});

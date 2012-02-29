@@ -25,9 +25,9 @@ namespace Web.Controllers
 		}
 
 
-		public ActionResult Create(string sessionId, string content, int elapsed = -1)
+		public ActionResult Create(string sessionId, string content, int elapsedMillisecondsSinceSessionStart = -1)
 		{
-			var logEntry = new LogEntry(sessionId, CurrentUserId, elapsed, null, content);
+			var logEntry = new LogEntry(sessionId, CurrentUserId, elapsedMillisecondsSinceSessionStart, null, content);
 			try
 			{
 				DocumentSession.Store(logEntry);

@@ -47,11 +47,18 @@ $.Controller('Usablog.SessionController', {
 	},
 
 	logEntryAdded: function(item) {
-		item.save();
 		var controller = this;
 		$.View("//scripts/usablog/logentry.tmpl", item, function (result) {
 			controller.log.append(result);
 		});
+	},
+	
+	otherEntries: function (data) {
+		for(var i in data) {
+			var json = data[i];
+			var entry = new Usablog.LogEntry(json);
+			this.logEntries.push(entry);
+		}
 	}
 });
 
@@ -71,7 +78,8 @@ $.Controller('Usablog.EntryInputController', {
 	},
 	
 	addLogEntry: function(content, timeStamp) {
-		var entry = new Usablog.LogEntry({ content: content, elapsed:timeStamp});
+		var entry = new Usablog.LogEntry({ content: content, elapsedMillisecondsSinceSessionStart:timeStamp});
+		entry.save();
 		this.model.push(entry);
 	},
 	
