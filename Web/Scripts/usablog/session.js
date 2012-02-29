@@ -16,14 +16,15 @@ $.Controller('SessionController', {
 	},
 
 	itemAdded: function(item) {
-		var html = $("<div/>");
-//		$.View("//scripts/usablog/session.ejs", item, function (result) {
-//			alert("view callback.");
-//			this.element.append(result);
-//		});
+
+		var controller = this;
+		$.View("//scripts/usablog/session.tmpl", item, function (result) {
+			controller.element.append(result);
+		});
 		
-		html.html(item.value);
-		this.element.append(html);
+//		var html = $("<div/>");
+//		html.html(item.value);
+//		this.element.append(html);
 	},
 
 	addItem: function() {
