@@ -6,6 +6,8 @@ defaults: {
 },
 
 makeFriendly: function (totalMs) {
+	if(isNaN(totalMs))
+		totalMs = 0;
 	var ms = totalMs % 1000;
 	var totalSecs = (totalMs - ms) / 1000;
 	var secs = totalSecs % 60;
