@@ -97,6 +97,38 @@ namespace Web.Controllers
 			}
 		}
 
+		[HttpPost]
+		public ActionResult Start(string id)
+		{
+			var session = DocumentSession.Load<Session>(id);
+			session.StartedAt = DateTime.Now;
+			try
+			{
+				DocumentSession.SaveChanges();
+				return new HttpStatusCodeResult(200);
+			}
+			catch
+			{
+				return new HttpStatusCodeResult(500);
+			}
+		}
+
+		[HttpPost]
+		public ActionResult Stop(string id)
+		{
+			var session = DocumentSession.Load<Session>(id);
+			session.EndedAt = DateTime.Now;
+			try
+			{
+				DocumentSession.SaveChanges();
+				return new HttpStatusCodeResult(200);
+			}
+			catch
+			{
+				return new HttpStatusCodeResult(500);
+			}
+		}
+
 		public class SessionInputs
 		{
 			public string StudyId { get; set; }

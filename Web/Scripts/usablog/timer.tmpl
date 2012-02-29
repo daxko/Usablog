@@ -1,0 +1,6 @@
+<div class="timer-view well">
+	<span class="current-time">${timer.elapsedFriendly()}</span>
+	{{if !timer.broadcasting }}
+	<button type="button" class="btn start-timer">Start</button>
+	{{/if}}
+</div>
