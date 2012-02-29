@@ -2,6 +2,12 @@
 
 @{
 	ViewBag.Title = "Rename Study";
+	ViewBag.Breadcrumbs = new Dictionary<string, string>
+	                      {
+	                      	{ "Home", Url.Content("~/") },
+							{ "Studies", Url.Action("Index") },
+							{ "Study: " + Model.Name, null }
+	                      };
 }
 
 <h2>Rename Study</h2>

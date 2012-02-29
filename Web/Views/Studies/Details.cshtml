@@ -3,6 +3,12 @@
 
 @{
 	ViewBag.Title = "Study - " + Model.Name;
+	ViewBag.Breadcrumbs = new Dictionary<string, string>
+	                      {
+	                      	{ "Home", Url.Content("~/") },
+							{ "Studies", Url.Action("Index") },
+							{ "Study: " + Model.Name, null }
+	                      };
 }
 
 <h2>@Model.Name <a href="@Url.Action("Rename", new { id = Model.Id })"><i class="icon-pencil"></i></a></h2>

@@ -2,6 +2,11 @@
 
 @{
 	ViewBag.Title = "Studies";
+	ViewBag.Breadcrumbs = new Dictionary<string, string>
+	                      {
+	                      	{ "Home", Url.Content("~/") },
+							{ "Studies", null },
+	                      };
 }
 
 <h2>

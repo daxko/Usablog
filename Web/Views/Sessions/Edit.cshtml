@@ -1,10 +1,17 @@
 ﻿@model Web.Models.Session
 
 @{
-	ViewBag.Title = "Edit Session - " + Model.DisplayName();
+	ViewBag.Title = "Edit Session";
+	ViewBag.Breadcrumbs = new Dictionary<string, string>
+	                      {
+	                      	{ "Home", Url.Content("~/") },
+							{ "Studies", Url.Action("Index", "Studies") },
+							{ "Study: " + ViewBag.Study.Name, Url.Action("Details", "Studies", new { id = Model.StudyId }) },
+							{ "Session: " + Model.DisplayName(), null }
+	                      };
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Edit Session</h2>
 
 @{
 	ViewBag.FormMethod = "POST";

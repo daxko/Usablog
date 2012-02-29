@@ -2,6 +2,12 @@
 
 @{
 	ViewBag.Title = "Create a new session";
+	ViewBag.Breadcrumbs = new Dictionary<string, string>
+	                      {
+	                      	{ "Home", Url.Content("~/") },
+							{ "Studies", Url.Action("Index", "Studies") },
+							{ "Study: " + ViewBag.Study.Name, Url.Action("Details", "Studies", new { id = Model.StudyId }) }
+	                      };
 }
 
 <h2>Create a New Session</h2>

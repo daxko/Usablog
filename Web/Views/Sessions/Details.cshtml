@@ -2,6 +2,13 @@
 
 @{
 	ViewBag.Title = "Session Log - " + Model.DisplayName();
+	ViewBag.Breadcrumbs = new Dictionary<string, string>
+	                      {
+	                      	{ "Home", Url.Content("~/") },
+							{ "Studies", Url.Action("Index", "Studies") },
+							{ "Study: " + ViewBag.Study.Name, Url.Action("Details", "Studies", new { id = Model.StudyId }) },
+							{ "Session: " + Model.DisplayName(), null }
+	                      };
 }
 
 @section head {
@@ -9,8 +16,6 @@
 }
 
 <h2>@ViewBag.Title</h2>
-
-<a href="@Url.Action("Details", "Studies", new { id = Model.StudyId })">Study: @ViewBag.Study.Name</a>
 <a href="@Url.Action("Edit", new { id = Model.Id })">Edit session</a>
 <div id="details"></div>
 

@@ -1,0 +1,34 @@
+﻿@{
+	IDictionary<string, string> crumbs = ViewBag.Breadcrumbs;
+	var count = 0;
+	var names = new string[0];
+	if (crumbs != null)
+	{
+		count = crumbs.Count;
+		names = crumbs.Keys.ToArray();
+	}
+}
+
+@if (crumbs != null)
+{
+	<ul class="breadcrumb">
+	@for (var i = 0; i < count; i++ )
+	{
+		var name = names[i];
+		var url = crumbs[name];
+		if (i < count - 1)
+		{
+			<li>
+				<a href="@url">@name</a>
+				<span class="divider">/</span>
+			</li>
+		}
+		else
+		{
+			<li class="active">
+				<a href="@(url ?? "#")">@name</a>
+			</li>
+		}
+	}
+	</ul>
+}
