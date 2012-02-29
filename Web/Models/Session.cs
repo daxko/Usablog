@@ -35,13 +35,13 @@ namespace Web.Models
 		{
 			get
 			{
-				if (StartedAt == null)
+				if (EndedAt == null)
 				{
-					if(EndedAt == null)
+					if (StartedAt == null)
 						return SessionStatus.NotStarted;
-					return SessionStatus.Ended;
+					return SessionStatus.InProgress;
 				}
-				return SessionStatus.InProgress;
+				return SessionStatus.Ended;
 			}
 		}
 
