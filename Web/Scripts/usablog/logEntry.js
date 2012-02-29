@@ -113,8 +113,7 @@ $.Controller('Usablog.EntryInputController', {
 		
 		this.addLogEntry(content, this.timeStamp, tag);
 
-		this.entryTimeStamp = null;
-		this.entry = null;
+		this.timeStamp = null;
 
 		input.val("").focus();
 	}
