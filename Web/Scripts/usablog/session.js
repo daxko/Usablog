@@ -79,8 +79,7 @@ $.Controller('Usablog.EntryInputController', {
 		if((event.which && (event.which == 13 || event.which == 47))) { //Enter key
 			var input = $(this.element).find("input[name=logEntry]");
 			if(input != $(event.target)) {
-				this.timeStamp = window.timer.elapsedMs();
-				this.timeStampDisplay = window.timer.elapsedFriendly();
+				this.timeStamp = window.timer.elapsed();
 				input.focus();
 			}
 		}
