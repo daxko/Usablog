@@ -63,7 +63,6 @@ $.Controller('Usablog.EntryInputController', {
 	
 	addLogEntry: function(value, timeStamp) {
 		var entry = new Usablog.LogEntry({ value: value, timeStamp:timeStamp});
-		
 		this.model.push(entry);
 	},
 
@@ -81,5 +80,9 @@ $.Controller('Usablog.EntryInputController', {
 
 		this.entryTimeStamp = null;
 		this.entry = null;
+
+		$(el).find("input[name=logEntry]")
+			.val("")
+			.focus();
 	}
 });
