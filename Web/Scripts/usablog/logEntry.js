@@ -52,8 +52,9 @@ $.Controller('Usablog.EntryInputController', {
 		});
 	},
 	
-	addLogEntry: function(content, timeStamp) {
-		var entry = new Usablog.LogEntry({ content: content, elapsedMillisecondsSinceSessionStart:timeStamp});
+	addLogEntry: function(content, timeStamp, tag) {
+		
+		var entry = new Usablog.LogEntry({ content: content, tag:tag, elapsedMillisecondsSinceSessionStart:timeStamp});
 		entry.save();
 		this.model.push(entry);
 	},
@@ -74,9 +75,27 @@ $.Controller('Usablog.EntryInputController', {
 		ev.preventDefault();
 		var input = $(el).find("input[name=logEntry]");
 		var value = input.val();
-		if(value == "")
+		if(value == "") {
 			return;
-		this.addLogEntry(value, this.timeStamp);
+		}
+
+		var content = value;
+		var tag = null;
+		if(value[0] == "/") {
+			var endOfTag = value.indexOf(" ");
+			if(endOfTag < 0) {
+				tag = value.substring(1, value.length);
+				content = "";
+			} else {
+				tag = value.substring(1, endOfTag);
+				content = value.substring(endOfTag + 1, value.length);
+			}
+		}
+
+		if(content == "")
+			return;
+		
+		this.addLogEntry(content, this.timeStamp, tag);
 
 		this.entryTimeStamp = null;
 		this.entry = null;
