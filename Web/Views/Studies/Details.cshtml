@@ -34,7 +34,7 @@
 				{
 					<tr>
 						<td>
-							@(session.StartDate.HasValue ? session.StartDate.Value.ToString("M/d") : "Unsch")
+							@(session.StartDate.HasValue ? session.StartDate.Value.ToString("M/d/yy") : "Unsch")
 						</td>
 						<td>
 							<a href="@Url.Action("Details", "Sessions", new { session.Id })">
