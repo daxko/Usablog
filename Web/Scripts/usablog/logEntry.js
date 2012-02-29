@@ -23,6 +23,17 @@ $.Model('Usablog.LogEntry',
 	}
 });
 
+$.Controller('Usablog.LogEntryController', {
+	init:function (raw_el, opts) {
+		this.model = opts.model;
+		
+		var controller = this;
+		$.View("//scripts/usablog/logentry.tmpl", this.model, function (result) {
+			controller.element.html(result);
+		});
+	}
+});
+
 $.Controller('Usablog.EntryInputController', {
 	
 	init:function (raw_el, opts) {

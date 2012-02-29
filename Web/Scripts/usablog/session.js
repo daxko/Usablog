@@ -21,11 +21,11 @@ $.Controller('Usablog.SessionController', {
 		new Usablog.EntryInputController(this.entryArea, {model: this.logEntries});
 	},
 
-	logEntryAdded: function(item) {
+	logEntryAdded: function(entry) {
 		var controller = this;
-		$.View("//scripts/usablog/logentry.tmpl", item, function (result) {
-			controller.log.append(result);
-		});
+		var listItem = $("<li></li>");
+		this.log.append(listItem);
+		new Usablog.LogEntryController(listItem, {model:entry});
 	},
 	
 	otherEntries: function (data) {
