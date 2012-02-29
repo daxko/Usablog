@@ -5,7 +5,7 @@
 		});
 
 		$("[href=#]").click(function(ev) {
-			return false;
+			ev.preventDefault();
 		});
 	});
 

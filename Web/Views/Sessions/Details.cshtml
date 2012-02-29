@@ -1,4 +1,5 @@
-﻿@model Web.Models.Session
+﻿@using Web.Models
+@model Session
 
 @{
 	ViewBag.Title = "Session Log - " + Model.DisplayName();
@@ -13,23 +14,44 @@
 
 @section head {
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/session.js")"></script>
+	@if (Model.Status == SessionStatus.InProgress)
+	{
+		var elapsedSinceStart = (long) Math.Floor((DateTime.Now - Model.StartedAt.Value).TotalMilliseconds);
+		<script> window.sessionStartTime = new Date().getTime() - @elapsedSinceStart; </script>
+	}
 }
 
 <h2>@ViewBag.Title</h2>
 <a href="@Url.Action("Edit", new { id = Model.Id })">Edit session</a>
+<button type="button" id="start">Start</button>
+<div id="timer"></div>
 <div id="details"></div>
 
-<script type="text/javascript">
+<script language="javascript" type="text/javascript">
 	$(function() {
+		Usablog.LogEntry.indexUrl = "@Url.Action("Index", "LogEntry", new { sessionId = Model.Id })";
+		Usablog.LogEntry.createUrl = "@Url.Action("Create", "LogEntry", new { sessionId = Model.Id })";
+
+		var $timer = $("#timer");
+		window.timer = new Usablog.Timer({startedAt: window.sessionStartTime});
+		
+		$(window.timer).bind("tick", function() {
+			$timer.html(window.timer.elapsedFriendly());
+		});
+
+		$("#start").click(function() {
+			window.timer.start(new Date().getTime());
+		});
+
 		$.ajax({
-				url:"@Url.Action("Edit", new { id = Model.Id })",
-				type: 'GET',
-				dataType: 'json',
-				cache:false,
-				success: function (data) {
-					var options = { modelJson: data };
-					window.sessionController = new SessionController($("#details"), options);
-				}
+			url:"@Url.Action("Edit", new { id = Model.Id })",
+			type: 'GET',
+			dataType: 'json',
+			cache:false,
+			success: function (data) {
+				window.session = new Usablog.Session(data);
+				window.sessionController = new Usablog.SessionController($("#details"), { model: window.session });
+			}
 		});
 		
 

@@ -19,5 +19,10 @@ namespace Web.Controllers
 				return _documentSession;
 			}
 		}
+
+		protected string CurrentUserId
+		{
+			get { return ControllerContext.HttpContext.User.Identity.Name; }
+		}
 	}
 }
