@@ -17,6 +17,8 @@ namespace Web.Models
 
 		public DateTime? ScheduledStart { get; set; }
 
+		public DateTime? StartDate { get { return StartedAt ?? ScheduledStart; } }
+
 		public string Notes { get; set; }
 
 		public string Facilitator { get; set; }
@@ -47,12 +49,18 @@ namespace Web.Models
 		{
 			var sb = new StringBuilder();
 
-			sb.Append(RespondentName);
-
-			DateTime? sessionDate = StartedAt ?? ScheduledStart;
-			if (sessionDate.HasValue)
+			if (!string.IsNullOrWhiteSpace(RespondentName))
 			{
-				sb.AppendFormat(" ({0})", sessionDate.Value.ToShortDateString());
+				sb.Append(RespondentName);
+			}
+			else
+			{
+				sb.Append("Unnamed");
+			}
+
+			if (!string.IsNullOrWhiteSpace(RespondentOrganization))
+			{
+				sb.AppendFormat(" @ {0}", RespondentOrganization);
 			}
 
 			return sb.ToString();

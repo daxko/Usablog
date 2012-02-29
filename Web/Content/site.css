@@ -17,4 +17,12 @@ h2 .icon-pencil
 	vertical-align: baseline;
 }
 
+table.sessions-list tr td:first-child
+{
+	width: 20%;
+}
 
+.ui-datepicker-inline 
+{
+	margin-bottom: 8px;
+}

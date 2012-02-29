@@ -6,54 +6,10 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form method="POST" action="@Url.Action("Edit", new { id = Model.Id })">
-	<span>Study: @ViewBag.Study.Name</span>
-	<input id="studyId" name="studyId" type="hidden" value="@Model.StudyId"/>
+@{
+	ViewBag.FormMethod = "POST";
+	ViewBag.SubmitUrl = Url.Action("Edit", new { id = Model.Id });
+	ViewBag.CancelUrl = Url.Action("Details", new {id = Model.Id});	
+}
 
-	<div class="row">
-		<div class="span4">
-			<div class="well">
-				<fieldset>
-					<legend>Respondent</legend>
-					
-					<label for="respondentName">Name</label>
-					<input id="respondentName" name="respondentName" type="text" required="true" class="required" value="@Model.RespondentName" maxlength="255"  />
-					
-					<label for="respondentOrganization">Organization</label>
-					<input id="respondentOrganization" name="respondentOrganization" type="text" value="@Model.RespondentOrganization" maxlength="255" />
-					
-					<label for="respondentUrl">URL</label>
-					<input id="respondentUrl" name="respondentUrl" type="text" value="@Model.RespondentUrl" maxlength="1024" />
-				</fieldset>
-			</div>
-		</div>
-		<div class="span4">
-			<div class="well">
-				<fieldset>
-					<legend>Scheduling</legend>
-				
-					<label for="scheduledStart">Date</label>
-					<input id="scheduledStart" name="scheduledStart" type="text" value="@(Model.ScheduledStart.HasValue ? Model.ScheduledStart.Value.ToShortDateString() : string.Empty)"/>
-
-					<label for="facilitator">Facilitator</label>
-					<input id="facilitator" name="facilitator" type="text" value="@Model.Facilitator" maxlength="255" />
-				</fieldset>
-			</div>
-		</div>
-		<div class="span4">
-			<div class="well">
-				<fieldset>
-					<legend>Meta</legend>
-					<label for="notes">Notes</label>
-					<textarea id="notes" name="notes">@Model.Notes</textarea>
-
-					<label for="videoUrl">Video URL</label>
-					<input id="videoUrl" name="videoUrl" type="text" value="@Model.VideoUrl" maxlength="1024" />
-				</fieldset>
-			</div>
-		</div>
-	</div>
-
-	<button type="submit" class="btn btn-primary">Save</button>
-	<button type="button" class="btn btn-link" href="@Url.Action("Details", new { id = Model.Id })">Cancel</button>
-</form>
+@Html.Partial("EditorForm");

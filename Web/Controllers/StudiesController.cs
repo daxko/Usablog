@@ -22,7 +22,10 @@ namespace Web.Controllers
 		public ActionResult Details(string id)
 		{
 			var study = DocumentSession.Load<Study>(id);
-			ViewBag.Sessions = DocumentSession.Query<Session>().Where(x => x.StudyId == id).ToList();
+			ViewBag.Sessions = DocumentSession.Query<Session>()
+				.Where(x => x.StudyId == id)
+				.OrderByDescending(x => x.StartDate)
+				.ToList();
 			return View(study);
 		}
 
@@ -75,7 +78,7 @@ namespace Web.Controllers
 			try
 			{
 				DocumentSession.SaveChanges();
-				return RedirectToAction("Details", new { id = id });
+				return RedirectToAction("Details", new { id });
 			}
 			catch
 			{
