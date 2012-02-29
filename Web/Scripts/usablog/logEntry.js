@@ -60,15 +60,31 @@ $.Controller('Usablog.EntryInputController', {
 	},
 	
 	keyPressed:function (event) {
-		if((event.which && (event.which == 13 || event.which == 47))) { //Enter key
-			var input = $(this.element).find("input[name=logEntry]");
-			if(input != $(event.target)) {
-				this.timeStamp = window.timer.elapsed();
-				input.focus();
-			}
+		if(!event.which)
+			return true;
+
+		if(event.which == 13 || event.which == 47) {
+			this.ensureFocusAndCaptureTimeStamp(event.target);
 		}
 		
 		return true;
+	},
+	
+	"input[name=logEntry] keyup": function (el, ev) {
+		if(!event.which)
+			return true;
+		if(event.which == 27) {
+			this.timeStamp = null;
+			$(el).val("").blur();
+		}
+	},
+	
+	ensureFocusAndCaptureTimeStamp: function (eventTarget) {
+		var input = $(this.element).find("input[name=logEntry]");
+			if(input != $(eventTarget)) {
+				this.timeStamp = this.timeStamp || window.timer.elapsed();
+				input.focus();
+			}
 	},
 
 	"form submit": function (el, ev) {
