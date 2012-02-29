@@ -59,30 +59,39 @@ $.Controller('Usablog.EntryInputController', {
 		$.View("//scripts/usablog/sessionentryform.tmpl", {}, function (result) {
 			controller.element.append(result);
 		});
+
+		$("body").bind("keypress", function (event) {
+			controller.keyPressed(event);
+		});
 	},
 	
 	addLogEntry: function(value, timeStamp) {
 		var entry = new Usablog.LogEntry({ value: value, timeStamp:timeStamp});
 		this.model.push(entry);
 	},
-
-	"input[name=logEntry] keyup": function (el, ev) {
-		this.entryTimeStamp = this.entryTimeStamp || new Date();
-		this.entry = $(ev.currentTarget).val();
+	
+	keyPressed:function (event) {
+		if((event.which && (event.which == 13 || event.which == 47))) { //Enter key
+			var input = $(this.element).find("input[name=logEntry]");
+			if(input != $(event.target))
+				input.focus();
+			return true;
+		}
+		
+		return true;
 	},
 
 	"form submit": function (el, ev) {
 		ev.preventDefault();
-		if(!this.entry)
+		var input = $(el).find("input[name=logEntry]");
+		var value = input.val();
+		if(value == "")
 			return;
-		
-		this.addLogEntry(this.entry, this.entryTimeStamp);
+		this.addLogEntry(value, window.timer.elapsedFriendly());
 
 		this.entryTimeStamp = null;
 		this.entry = null;
 
-		$(el).find("input[name=logEntry]")
-			.val("")
-			.focus();
+		input.val("").focus();
 	}
 });
