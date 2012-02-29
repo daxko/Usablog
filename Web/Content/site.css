@@ -3,7 +3,17 @@
 	padding-top: 20px;
 }
 
-h2 .icon-pencil {
+.navbar .nav > li > div 
+{
+	color: #999999;
+	float: none;
+	line-height: 19px;
+	padding: 10px 10px 11px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+h2 .icon-pencil 
+{
 	vertical-align: baseline;
 }
 
