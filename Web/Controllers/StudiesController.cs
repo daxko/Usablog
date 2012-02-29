@@ -46,7 +46,7 @@ namespace Web.Controllers
 				DocumentSession.Store(study);
 				DocumentSession.SaveChanges();
 
-				return RedirectToAction("Index");
+				return RedirectToAction("Details", new { id = study.Id });
 			}
 			catch
 			{
