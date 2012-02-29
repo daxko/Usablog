@@ -14,7 +14,17 @@ $.Model('Usablog.LogEntry',
 }, 
 // prototype
 {
-
+	save:function () {
+		$.ajax({
+			url:this.Class.createUrl,
+			type:'POST',
+			dataType:'json',
+			contentType:'application/json',
+			data: JSON.stringify(this.serialize()),
+			error: function (jqXHR, textStatus, errorThrown){},
+			success: function (data, textStatus, jqXHR){}
+		});
+	}
 });
 
 $.Controller('Usablog.SessionController', {
@@ -37,16 +47,11 @@ $.Controller('Usablog.SessionController', {
 	},
 
 	logEntryAdded: function(item) {
+		item.save();
 		var controller = this;
 		$.View("//scripts/usablog/logentry.tmpl", item, function (result) {
 			controller.log.append(result);
 		});
-	},
-
-	addLogEntry: function(value, timeStamp) {
-		var entry = new LogEntry({ value: value, timeStamp:timeStamp});
-		
-		this.logEntries.push(entry);
 	}
 });
 
@@ -65,17 +70,19 @@ $.Controller('Usablog.EntryInputController', {
 		});
 	},
 	
-	addLogEntry: function(value, timeStamp) {
-		var entry = new Usablog.LogEntry({ value: value, timeStamp:timeStamp});
+	addLogEntry: function(content, timeStamp) {
+		var entry = new Usablog.LogEntry({ content: content, elapsed:timeStamp});
 		this.model.push(entry);
 	},
 	
 	keyPressed:function (event) {
 		if((event.which && (event.which == 13 || event.which == 47))) { //Enter key
 			var input = $(this.element).find("input[name=logEntry]");
-			if(input != $(event.target))
+			if(input != $(event.target)) {
+				this.timeStamp = window.timer.elapsedMs();
+				this.timeStampDisplay = window.timer.elapsedFriendly();
 				input.focus();
-			return true;
+			}
 		}
 		
 		return true;
@@ -87,7 +94,7 @@ $.Controller('Usablog.EntryInputController', {
 		var value = input.val();
 		if(value == "")
 			return;
-		this.addLogEntry(value, window.timer.elapsedFriendly());
+		this.addLogEntry(value, this.timeStamp);
 
 		this.entryTimeStamp = null;
 		this.entry = null;

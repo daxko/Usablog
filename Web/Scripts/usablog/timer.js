@@ -3,6 +3,16 @@
 {
 defaults: {
 	broadcastInterval: 100
+},
+
+makeFriendly: function (totalMs) {
+	var ms = totalMs % 1000;
+	var totalSecs = (totalMs - ms) / 1000;
+	var secs = totalSecs % 60;
+	var totalMins = (totalSecs - secs) / 60;
+	var mins = totalMins % 60;
+	var hours = (totalMins - mins) / 60;
+	return (hours ? hours + ":" : "") + mins + ":" + secs;
 }
 },
 //ptototype
@@ -48,12 +58,6 @@ elapsedMs: function () {
 
 elapsedFriendly: function () {
 	var totalMs = this.elapsedMs();
-	var ms = totalMs % 1000;
-	var totalSecs = (totalMs - ms) / 1000;
-	var secs = totalSecs % 60;
-	var totalMins = (totalSecs - secs) / 60;
-	var mins = totalMins % 60;
-	var hours = (totalMins - mins) / 60;
-	return (hours ? hours + ":" : "") + mins + ":" + secs;
+	return this.Class.makeFriendly(totalMs);
 }
 });
