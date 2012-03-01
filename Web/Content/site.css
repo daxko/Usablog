@@ -60,7 +60,7 @@ table.sessions-list tr td:first-child
 }
 
 .log-entry .entry-tag {
-	
+	font-weight: bold;
 }
 
 .log-entry .entry-time {
