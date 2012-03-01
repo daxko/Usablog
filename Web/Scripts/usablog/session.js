@@ -137,8 +137,10 @@ $.Controller('Usablog.SessionController', {
 		var listItem = $("<li></li>");
 		this.logEl.append(listItem);
 		new Usablog.LogEntryController(listItem, { model: entry });
-		if(!this.bulkLoading)
-			this.logEl.animate({scrollTop: this.logEl.height()}, 'slow');
+		if(!this.bulkLoading) {
+			var scrollTo = this.logEl.prop("scrollHeight");
+			this.logEl.animate({scrollTop: scrollTo}, 'slow');
+		}
 	},
 
 	otherEntries: function (data) {
@@ -176,7 +178,6 @@ $.Controller('Usablog.SessionController', {
 	resizeLog: function () {
 		var top = this.logEl.offset().top;
 		var viewportHeight = $(window).height();
-		console.log("top: " + top, "viewportHeight: " + viewportHeight);
 		this.logEl.css("height", (viewportHeight-top-58) + "px");
 	},
 	
