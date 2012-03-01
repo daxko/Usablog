@@ -90,15 +90,23 @@ $.Controller('Usablog.SessionController', {
 			self.entryAreaEl = self.element.find("div.entry-area");
 			self.timerEl = self.element.find("div.timer");
 
-			new Usablog.EntryInputController(self.entryAreaEl, { model: self.logEntries, session: self.model });
+			//new Usablog.EntryInputController(self.entryAreaEl, { model: self.logEntries, session: self.model });
 
 			self.renderPanel();
+		
+			self.entryAreaEl.bind("inputCancelled", function (event) {
+				self.hideInput();
+			});
 		});
 
 
 		this.model.bind("change", function (ev,attr,how,newVal,oldVal) {
 			if(attr === "status")
 				self.renderPanel();
+		});
+		
+		$("body").bind("keypress", function (event) {
+			self.keyPressed(event);
 		});
 	},
 
@@ -133,5 +141,27 @@ $.Controller('Usablog.SessionController', {
 			var entry = new Usablog.LogEntry(json);
 			this.logEntries.push(entry);
 		}
+	},
+
+	keyPressed: function (event) {
+		if (!event.which)
+			return true;
+		if(this.inputVisible)
+			return true;
+		
+		if (event.which == 13 || event.which == 47) {
+			this.inputVisible = true;
+			
+			var input = $("<div></div>");
+			this.entryAreaEl.html(input);
+			new Usablog.EntryInputController(input, { model: this.logEntries, session: this.model });
+		}
+
+		return true;
+	},
+	
+	hideInput: function () {
+		this.entryAreaEl.html("Press Enter to begin logging");
+		this.inputVisible = false;
 	}
 });

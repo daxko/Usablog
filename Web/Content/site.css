@@ -35,7 +35,7 @@ table.sessions-list tr td:first-child
 	margin-left: 5px;
 }
 
-.usablog_entry_input_controller {
+.entry-area {
 	position: fixed;
 	bottom: 0;
 	width: 960px;
@@ -43,10 +43,10 @@ table.sessions-list tr td:first-child
 	border: solid 1px #000;
 }
 
-.usablog_entry_input_controller form {
+.entry-area form {
 	margin-bottom: 10px;
 }
 
-.usablog_entry_input_controller .logEntry {
+.entry-area .logEntry {
 	width: 99%;
 }

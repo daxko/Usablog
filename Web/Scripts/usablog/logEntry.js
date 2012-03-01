@@ -43,44 +43,33 @@ $.Controller('Usablog.EntryInputController', {
 
 		this.model = opts.model;
 		this.timer = opts.session.timer;
+		this.timeStamp = opts.session.timer.elapsed();
 		var controller = this;
 		$.View("//scripts/usablog/sessionentryform.tmpl", {}, function (result) {
-			controller.element.append(result);
+			controller.element.html(result);
 			controller.inputEl = $(controller.element).find("input[name=logEntry]");
-		});
-
-		$("body").bind("keypress", function (event) {
-			controller.keyPressed(event);
+			controller.inputEl.focus();
 		});
 	},
 
 	addLogEntry: function (content, timeStamp, tag) {
-
 		var entry = new Usablog.LogEntry({ content: content, tag: tag, elapsedMillisecondsSinceSessionStart: timeStamp });
 		entry.save();
 		this.model.push(entry);
 	},
 
-	keyPressed: function (event) {
-		if (!event.which)
-			return true;
-
-		if (event.which == 13 || event.which == 47) {
-			this.ensureFocusAndCaptureTimeStamp(event.target);
-			if (event.which == 47) {
-				this.inputEl.val('/');
+	"input[name=logEntry] keyup": function (el, ev) {
+		if(this.timeStamp == null) {
+			if($(el).val() != "") {
+				this.timeStamp = this.timer.elapsed();
 			}
 		}
-
-		return true;
-	},
-
-	"input[name=logEntry] keyup": function (el, ev) {
+		
 		if (!event.which)
 			return true;
 		if (event.which == 27) {
 			this.timeStamp = null;
-			$(el).val("").blur();
+			this.element.trigger("inputCancelled");
 		}
 	},
 
