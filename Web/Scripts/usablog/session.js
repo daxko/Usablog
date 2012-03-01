@@ -164,14 +164,18 @@ $.Controller('Usablog.SessionController', {
 			return true;
 		
 		if (event.which == 13 || event.which == 47) {
-			this.inputVisible = true;
-			
-			var input = $("<div></div>");
-			this.entryAreaEl.html(input);
-			new Usablog.EntryInputController(input, { model: this.logEntries, session: this.model });
+			this.showInput();
 		}
 
 		return true;
+	},
+	
+	showInput: function () {
+		this.inputVisible = true;
+			
+		var input = $("<div></div>");
+		this.entryAreaEl.html(input);
+		new Usablog.EntryInputController(input, { model: this.logEntries, session: this.model });
 	},
 	
 	hideInput: function () {
