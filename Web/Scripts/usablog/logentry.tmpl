@@ -1,4 +1,4 @@
 <div class="log-entry">
 	<span class="entry-time">${Usablog.Timer.formatElapsed(elapsedMillisecondsSinceSessionStart)}</span>
-	<span class="entry-content ${tag}" title="${tag}">${content}</span>
+	<span class="entry-content ${tag}" title="${Usablog.LogEntry.tagsConfig[tag].name}">${content}</span>
 </div>
