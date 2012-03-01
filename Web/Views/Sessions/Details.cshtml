@@ -35,6 +35,15 @@
 		Usablog.Session.startUrl = "@Url.Action("Start", new { id = Model.Id })";
 		Usablog.Session.endUrl = "@Url.Action("Stop", new { id = Model.Id })";
 		Usablog.Session.getSessionTimeUrl = "@Url.Action("GetElapsedTime", new { id = Model.Id })";
+		
+		$.ajax({
+			url:"@Url.Action("Tags", "LogEntry")",
+			type: 'GET',
+			dataType: 'json',
+			success: function (data) {
+				Usablog.LogEntry.tagsConfig = data;
+			}
+		});
 
 		var loadOtherEntries = function(sessionController) {
 			$.ajax({

@@ -4,6 +4,8 @@ $.Model('Usablog.LogEntry',
 	indexUrl: "",
 	createUrl: "",
 	
+	tagsConfig: {},
+	
 	load: function (sessionId) {
 		
 	},
@@ -26,7 +28,14 @@ $.Model('Usablog.LogEntry',
 		if(content == "")
 			content = tag;
 		
+		if(!Usablog.LogEntry.tagIsValid(tag))
+			tag = null;
+		
 		return new Usablog.LogEntry({ content:content, tag:tag, elapsedMillisecondsSinceSessionStart: timeStamp });
+	},
+	
+	tagIsValid:function (tag) {
+		return Usablog.LogEntry.tagsConfig[tag];
 	}
 }, 
 // prototype

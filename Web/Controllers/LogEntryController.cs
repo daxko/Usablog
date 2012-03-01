@@ -42,5 +42,10 @@ namespace Web.Controllers
 				return new HttpStatusCodeResult(500, "Unexpected error saving log entry. Failure has been logged.");
 			}
 		}
+
+		public ActionResult Tags()
+		{
+			return new EntityJsonActionResult(LogEntry.TagsConfig);
+		}
 	}
 }
