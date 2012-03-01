@@ -6,6 +6,27 @@ $.Model('Usablog.LogEntry',
 	
 	load: function (sessionId) {
 		
+	},
+	
+	fromInput: function (value, timeStamp) {
+		
+		var content = value;
+		var tag = null;
+		if (value[0] == "/") {
+			var endOfTag = value.indexOf(" ");
+			if (endOfTag < 0) {
+				tag = value.substring(1, value.length);
+				content = "";
+			} else {
+				tag = value.substring(1, endOfTag);
+				content = value.substring(endOfTag + 1, value.length);
+			}
+		}
+		
+		if(content == "")
+			content = tag;
+		
+		return new Usablog.LogEntry({ content:content, tag:tag, elapsedMillisecondsSinceSessionStart: timeStamp });
 	}
 }, 
 // prototype
@@ -83,31 +104,16 @@ $.Controller('Usablog.EntryInputController', {
 			return;
 		}
 
-		var content = value;
-		var tag = null;
-		if (value[0] == "/") {
-			var endOfTag = value.indexOf(" ");
-			if (endOfTag < 0) {
-				tag = value.substring(1, value.length);
-				content = "";
-			} else {
-				tag = value.substring(1, endOfTag);
-				content = value.substring(endOfTag + 1, value.length);
-			}
-		}
-
-		if (content == "")
-			return;
-
-		this.addLogEntry(content, this.timeStamp, tag);
+		this.addLogEntry(value, this.timeStamp);
 
 		this.timeStamp = null;
 
 		input.val("").focus();
 	},
 
-	addLogEntry: function (content, timeStamp, tag) {
-		var entry = new Usablog.LogEntry({ content: content, tag: tag, elapsedMillisecondsSinceSessionStart: timeStamp });
+	addLogEntry: function (value, timeStamp) {
+		
+		var entry = Usablog.LogEntry.fromInput(value, timeStamp);
 		entry.save();
 		this.model.push(entry);
 	}
