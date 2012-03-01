@@ -36,6 +36,16 @@ $.Model('Usablog.LogEntry',
 	
 	tagIsValid:function (tag) {
 		return Usablog.LogEntry.tagsConfig[tag];
+	},
+	
+	formatTag: function (tag) {
+		if(tag && tag != "") {
+
+			var info = Usablog.LogEntry.tagsConfig[tag];
+			if(info)
+				return info.name;
+		}
+		return "";
 	}
 }, 
 // prototype
