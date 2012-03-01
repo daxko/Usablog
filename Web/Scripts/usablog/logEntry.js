@@ -52,12 +52,6 @@ $.Controller('Usablog.EntryInputController', {
 		});
 	},
 
-	addLogEntry: function (content, timeStamp, tag) {
-		var entry = new Usablog.LogEntry({ content: content, tag: tag, elapsedMillisecondsSinceSessionStart: timeStamp });
-		entry.save();
-		this.model.push(entry);
-	},
-
 	"input[name=logEntry] keyup": function (el, ev) {
 		if(this.timeStamp == null) {
 			if($(el).val() != "") {
@@ -110,5 +104,11 @@ $.Controller('Usablog.EntryInputController', {
 		this.timeStamp = null;
 
 		input.val("").focus();
+	},
+
+	addLogEntry: function (content, timeStamp, tag) {
+		var entry = new Usablog.LogEntry({ content: content, tag: tag, elapsedMillisecondsSinceSessionStart: timeStamp });
+		entry.save();
+		this.model.push(entry);
 	}
 });
