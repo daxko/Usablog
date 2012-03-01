@@ -48,3 +48,20 @@ table.sessions-list tr td:first-child
 .entry-area .logEntry {
 	width: 98%;
 }
+
+.log-entry {
+	
+}
+
+.log-entry .entry-tag {
+	
+}
+
+.log-entry .entry-time {
+	color: #666666;
+	font-size: 0.9em;
+}
+
+.log-entry .entry-content {
+	
+}
