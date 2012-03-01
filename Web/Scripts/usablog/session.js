@@ -133,14 +133,18 @@ $.Controller('Usablog.SessionController', {
 		var listItem = $("<li></li>");
 		this.logEl.append(listItem);
 		new Usablog.LogEntryController(listItem, { model: entry });
+		if(!this.bulkLoading)
+			$('html, body').animate({scrollTop: $(document).height()}, 'slow');
 	},
 
 	otherEntries: function (data) {
+		this.bulkLoading = true;
 		for (var i in data) {
 			var json = data[i];
 			var entry = new Usablog.LogEntry(json);
 			this.logEntries.push(entry);
 		}
+		this.bulkLoading = false;
 	},
 
 	keyPressed: function (event) {
