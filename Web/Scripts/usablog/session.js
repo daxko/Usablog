@@ -138,9 +138,13 @@ $.Controller('Usablog.SessionController', {
 		this.logEl.append(listItem);
 		new Usablog.LogEntryController(listItem, { model: entry });
 		if(!this.bulkLoading) {
-			var scrollTo = this.logEl.prop("scrollHeight");
-			this.logEl.animate({scrollTop: scrollTo}, 'slow');
+			this.scrollToBottomOfLog();
 		}
+	},
+	
+	scrollToBottomOfLog: function () {
+		var scrollTo = this.logEl.prop("scrollHeight");
+		this.logEl.animate({scrollTop: scrollTo}, 'slow');
 	},
 
 	otherEntries: function (data) {
