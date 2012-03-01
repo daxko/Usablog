@@ -41,6 +41,12 @@
 								@(string.IsNullOrWhiteSpace(session.DisplayName()) ? session.Id : session.DisplayName())
 							</a>
 						</td>
+						<td>
+							&nbsp;
+							@if (!string.IsNullOrEmpty(session.Facilitator)) {
+								<span class="label label-info">@session.Facilitator</span>
+							}
+						</td>
 					</tr>
 				}
 				</tbody>
