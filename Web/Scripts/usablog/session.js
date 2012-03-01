@@ -89,13 +89,17 @@ $.Controller('Usablog.SessionController', {
 			self.logEl = self.element.find("ol.log");
 			self.entryAreaEl = self.element.find("div.entry-area");
 			self.timerEl = self.element.find("div.timer");
-
-			//new Usablog.EntryInputController(self.entryAreaEl, { model: self.logEntries, session: self.model });
-
+			
 			self.renderPanel();
 		
 			self.entryAreaEl.bind("inputCancelled", function (event) {
 				self.hideInput();
+			});
+
+			self.resizeLog();
+			
+			$(window).resize(function() {
+				self.resizeLog();
 			});
 		});
 
@@ -134,7 +138,7 @@ $.Controller('Usablog.SessionController', {
 		this.logEl.append(listItem);
 		new Usablog.LogEntryController(listItem, { model: entry });
 		if(!this.bulkLoading)
-			$('html, body').animate({scrollTop: $(document).height()}, 'slow');
+			this.logEl.animate({scrollTop: this.logEl.height()}, 'slow');
 	},
 
 	otherEntries: function (data) {
@@ -167,5 +171,16 @@ $.Controller('Usablog.SessionController', {
 	hideInput: function () {
 		this.entryAreaEl.html("Press Enter to begin logging");
 		this.inputVisible = false;
+	},
+	
+	resizeLog: function () {
+		var top = this.logEl.offset().top;
+		var viewportHeight = $(window).height();
+		console.log("top: " + top, "viewportHeight: " + viewportHeight);
+		this.logEl.css("height", (viewportHeight-top-58) + "px");
+	},
+	
+	onWindowResize:function () {
+		this.resizeLog();
 	}
 });

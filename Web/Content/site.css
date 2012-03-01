@@ -30,15 +30,13 @@ table.sessions-list tr td:first-child
 
 /* Below is css-only hack to force the log input to the bottom of the viewport */
 .log {
-	padding-bottom: 50px;
+	overflow-y: scroll;
 	list-style: none;
 	margin-left: 5px;
 }
 
 .entry-area {
-	position: fixed;
-	bottom: 0;
-	width: 960px;
+	
 	background-color: #fff;
 	border: solid 1px #000;
 }
@@ -48,5 +46,5 @@ table.sessions-list tr td:first-child
 }
 
 .entry-area .logEntry {
-	width: 99%;
+	width: 98%;
 }
