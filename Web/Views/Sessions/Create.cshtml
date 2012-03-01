@@ -6,7 +6,8 @@
 	                      {
 	                      	{ "Home", Url.Content("~/") },
 							{ "Studies", Url.Action("Index", "Studies") },
-							{ "Study: " + ViewBag.Study.Name, Url.Action("Details", "Studies", new { id = Model.StudyId }) }
+							{ "Study: " + ViewBag.Study.Name, Url.Action("Details", "Studies", new { id = Model.StudyId }) },
+							{ "New", null }
 	                      };
 }
 
