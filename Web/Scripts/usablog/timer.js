@@ -13,21 +13,21 @@
 	$.Class('Usablog.Timer',
 	//static
 	{
-		defaults: {
-			broadcastInterval: 100
-		},
-
-		formatElapsed: function (elapsedMs) {
-			var ms = elapsedMs % 1000;
-			var totalSecs = (elapsedMs - ms) / 1000;
-			var secs = totalSecs % 60;
-			var totalMins = (totalSecs - secs) / 60;
-			var mins = totalMins % 60;
-			var hours = (totalMins - mins) / 60;
-			return (hours ? hours + ":" + pad(mins, 2) : mins) + ":" + pad(secs, 2);
-		}
+	defaults: {
+		broadcastInterval: 100
 	},
-	//prototype
+
+	formatElapsed: function (elapsedMs) {
+		var ms = elapsedMs % 1000;
+		var totalSecs = (elapsedMs - ms) / 1000;
+		var secs = totalSecs % 60;
+		var totalMins = (totalSecs - secs) / 60;
+		var mins = totalMins % 60;
+		var hours = (totalMins - mins) / 60;
+		return (hours ? hours + ":" + pad(mins, 2) : mins) + ":" + pad(secs, 2);
+	}
+},
+//prototype
 	{
 	init: function (options) {
 		if (options instanceof Date) {
@@ -44,11 +44,13 @@
 
 	start: function (startTime) {
 		this.startedAt = startTime || (new Date()).getTime();
+		$(this).trigger("started");
 		this.startBroadcasting();
 	},
 
 	stop: function () {
 		this.stopBroadcasting();
+		$(this).trigger("stopped");
 	},
 
 	startBroadcasting: function () {
@@ -81,57 +83,42 @@
 	}
 });
 
-$.Controller('Usablog.TimerController',
+$.Controller('Usablog.SessionTimerController',
 	{
 		startTimerUrl: ""
 	},
 	{
 		init: function (raw_el, opts) {
-			this.timer = opts.timer || new Usablog.Timer();
-
+			this.model = opts.model;
 			var self = this;
-			$(this.timer).bind("tick", function () { self.onTick(); });
+
+			this.tickHandler = function () { self.onTick(); };
+			$(this.model.timer).bind("tick", this.tickHandler);
 
 			this.render();
 		},
 
-		"button.start-timer click": function () {
-			var controller = this;
-			var timer = this.timer;
-			$.ajax({
-				url: Usablog.Timer.startTimerUrl,
-				type: 'POST',
-				dataType: 'json',
-				success: function () {
-					timer.start();
-					controller.render();
-				}
-			});
+		destroy: function () {
+			$(this.model.timer).unbind("tick", this.tickHandler);
 		},
 
-		"button.stop-timer click": function () {
-			var controller = this;
-			var timer = this.timer;
-			$.ajax({
-				url: Usablog.Timer.stopTimerUrl,
-				type: 'POST',
-				dataType: 'json',
-				success: function () {
-					timer.stop();
-					controller.render();
-				}
-			});
+		"button.start-session click": function () {
+			this.model.start();
+		},
+
+		"button.finish-logging click": function () {
+			this.model.end();
 		},
 
 		onTick: function () {
 			if (this.timeElement) {
-				this.timeElement.html(this.timer.elapsedFriendly());
+				this.timeElement.html(this.model.timer.elapsedFriendly());
 			}
 		},
 
 		render: function () {
 			var controller = this;
-			$.View("//scripts/usablog/timer.tmpl", { timer: this.timer }, function (result) {
+			$.View("//scripts/usablog/timer.tmpl", { timer: this.model.timer, status: this.model.attr("status") }, function (result) {
 				controller.element.html(result);
 				controller.timeElement = $(controller.element).find('.current-time');
 			});

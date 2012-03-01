@@ -42,6 +42,7 @@ $.Controller('Usablog.EntryInputController', {
 	init: function (raw_el, opts) {
 
 		this.model = opts.model;
+		this.timer = opts.session.timer;
 		var controller = this;
 		$.View("//scripts/usablog/sessionentryform.tmpl", {}, function (result) {
 			controller.element.append(result);
@@ -86,7 +87,7 @@ $.Controller('Usablog.EntryInputController', {
 	ensureFocusAndCaptureTimeStamp: function (eventTarget) {
 		var input = this.inputEl;
 		if (input != $(eventTarget)) {
-			this.timeStamp = this.timeStamp || window.timer.elapsed();
+			this.timeStamp = this.timeStamp || this.timer.elapsed();
 			input.focus();
 		}
 	},

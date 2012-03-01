@@ -25,7 +25,6 @@
 
 <h2>@ViewBag.Title</h2>
 <a href="@Url.Action("Edit", new { id = Model.Id })">Edit session</a>
-<div id="timer"></div>
 <div id="details"></div>
 
 <script language="javascript" type="text/javascript">
@@ -33,11 +32,9 @@
 		Usablog.LogEntry.indexUrl = "@Url.Action("Index", "LogEntry", new { sessionId = Model.Id })";
 		Usablog.LogEntry.createUrl = "@Url.Action("Create", "LogEntry", new { sessionId = Model.Id })";
 
-		Usablog.Timer.startTimerUrl = "@Url.Action("Start", new { id = Model.Id })";
-		Usablog.Timer.stopTimerUrl = "@Url.Action("Stop", new { id = Model.Id })";
-
-		window.timer = new Usablog.Timer({startedAt: window.sessionStartTime});
-		window.timerController = new Usablog.TimerController($("#timer"), { timer: window.timer });
+		Usablog.Session.startUrl = "@Url.Action("Start", new { id = Model.Id })";
+		Usablog.Session.endUrl = "@Url.Action("Stop", new { id = Model.Id })";
+		Usablog.Session.getSessionTimeUrl = "@Url.Action("GetElapsedTime", new { id = Model.Id })";
 
 		var loadOtherEntries = function(sessionController) {
 			$.ajax({

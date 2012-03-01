@@ -1,6 +1,9 @@
 <div class="timer-view well">
 	<span class="current-time">${timer.elapsedFriendly()}</span>
-	{{if !timer.broadcasting }}
-	<button type="button" class="btn start-timer">Start</button>
+	{{if status==="NotStarted" }}
+	<button type="button" class="btn start-session">Start Session</button>
+	{{/if}}
+	{{if status==="InProgress" }}
+	<button type="button" class="btn finish-logging">Finish Logging</button>
 	{{/if}}
 </div>

@@ -129,6 +129,17 @@ namespace Web.Controllers
 			}
 		}
 
+		[HttpGet]
+		public ActionResult GetElapsedTime(string id)
+		{
+			var session = DocumentSession.Load<Session>(id);
+			var elapsed = session.StartedAt.HasValue ? 
+				(int)Math.Floor((DateTime.Now - session.StartedAt.Value).TotalMilliseconds) : 
+				0;
+
+			return Json(elapsed, JsonRequestBehavior.AllowGet);
+		}
+
 		public class SessionInputs
 		{
 			public string StudyId { get; set; }
@@ -140,5 +151,7 @@ namespace Web.Controllers
 			public string VideoUrl { get; set; }
 			public string Notes { get; set; }
 		}
+
+		
 	}
 }
