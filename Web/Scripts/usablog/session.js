@@ -179,14 +179,14 @@ $.Controller('Usablog.SessionController', {
 	},
 	
 	hideInput: function () {
-		this.entryAreaEl.html("Press Enter to begin logging");
+		this.entryAreaEl.html("<div class=\"alert alert-info\">Press Enter to begin logging</div>");
 		this.inputVisible = false;
 	},
 	
 	resizeLog: function () {
 		var top = this.logEl.offset().top;
 		var viewportHeight = $(window).height();
-		this.logEl.css("height", (viewportHeight-top-58) + "px");
+		this.logEl.css("height", (viewportHeight-top-42) + "px");
 	},
 	
 	onWindowResize:function () {

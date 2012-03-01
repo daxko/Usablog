@@ -33,20 +33,26 @@ table.sessions-list tr td:first-child
 	overflow-y: scroll;
 	list-style: none;
 	margin-left: 5px;
+	margin-bottom: 5px;
 }
 
 .entry-area {
-	
 	background-color: #fff;
-	border: solid 1px #000;
+	
+}
+
+.entry-area .alert.alert-info {
+	margin-bottom: 0;
 }
 
 .entry-area form {
-	margin-bottom: 10px;
+	padding: 2px;
+	margin-bottom: auto;
 }
 
 .entry-area .logEntry {
 	width: 98%;
+	margin: 0;
 }
 
 .log-entry {
