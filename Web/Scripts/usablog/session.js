@@ -109,7 +109,7 @@ $.Controller('Usablog.SessionController', {
 				self.renderPanel();
 		});
 		
-		$("body").bind("keypress", function (event) {
+		this.bodyKeypressBinding = $("body").bind("keypress", function (event) {
 			self.keyPressed(event);
 		});
 	},
@@ -117,6 +117,7 @@ $.Controller('Usablog.SessionController', {
 	renderPanel: function () {
 		if (this.model.attr('status') === "Ended") {
 			this.renderFindings();
+			this.disableLogEntry();
 		}
 		else {
 			this.renderTimer();
@@ -131,6 +132,12 @@ $.Controller('Usablog.SessionController', {
 
 	renderFindings: function () {
 		this.timerEl.html("<h2>Findings</h2> stuff happens here.");
+	},
+	
+	disableLogEntry: function () {
+		$("body").unbind("keypress", this.bodyKeypressBinding);
+		this.hideInput();
+		this.entryAreaEl.remove();
 	},
 
 	logEntryAdded: function (entry) {
