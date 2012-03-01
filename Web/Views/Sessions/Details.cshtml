@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/timer.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/session.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/logEntry.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/logEntryCollection.js")"></script>
 	@if (Model.Status == SessionStatus.InProgress)
 	{
 		var elapsedSinceStart = (long) Math.Floor((DateTime.Now - Model.StartedAt.Value).TotalMilliseconds);
