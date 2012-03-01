@@ -112,6 +112,11 @@ $.Controller('Usablog.EntryInputController', {
 		if (value == "") {
 			return;
 		}
+		
+		if(value == "/?" || value == "?") {
+			this.showTagHelp();
+			return;
+		}
 
 		this.addLogEntry(value, this.timeStamp);
 
@@ -125,5 +130,19 @@ $.Controller('Usablog.EntryInputController', {
 		var entry = Usablog.LogEntry.fromInput(value, timeStamp);
 		entry.save();
 		this.model.push(entry);
+	},
+	
+	showTagHelp:function () {
+
+		$.View("//scripts/usablog/taghelp.tmpl", {config: Usablog.LogEntry.tagsConfig}, function (result) {
+			var modal = $(result);
+
+			var options = {
+				hidden:function () {
+					modal.remove();
+				}
+			};
+			modal.modal(options);
+		});
 	}
 });
