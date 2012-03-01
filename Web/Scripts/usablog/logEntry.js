@@ -38,68 +38,72 @@ $.Controller('Usablog.LogEntryController', {
 });
 
 $.Controller('Usablog.EntryInputController', {
-	
-	init:function (raw_el, opts) {
+
+	init: function (raw_el, opts) {
 
 		this.model = opts.model;
 		var controller = this;
 		$.View("//scripts/usablog/sessionentryform.tmpl", {}, function (result) {
 			controller.element.append(result);
+			controller.inputEl = $(controller.element).find("input[name=logEntry]");
 		});
 
 		$("body").bind("keypress", function (event) {
 			controller.keyPressed(event);
 		});
 	},
-	
-	addLogEntry: function(content, timeStamp, tag) {
-		
-		var entry = new Usablog.LogEntry({ content: content, tag:tag, elapsedMillisecondsSinceSessionStart:timeStamp});
+
+	addLogEntry: function (content, timeStamp, tag) {
+
+		var entry = new Usablog.LogEntry({ content: content, tag: tag, elapsedMillisecondsSinceSessionStart: timeStamp });
 		entry.save();
 		this.model.push(entry);
 	},
-	
-	keyPressed:function (event) {
-		if(!event.which)
+
+	keyPressed: function (event) {
+		if (!event.which)
 			return true;
 
-		if(event.which == 13 || event.which == 47) {
+		if (event.which == 13 || event.which == 47) {
 			this.ensureFocusAndCaptureTimeStamp(event.target);
+			if (event.which == 47) {
+				this.inputEl.val('/');
+			}
 		}
-		
+
 		return true;
 	},
-	
+
 	"input[name=logEntry] keyup": function (el, ev) {
-		if(!event.which)
+		if (!event.which)
 			return true;
-		if(event.which == 27) {
+		if (event.which == 27) {
 			this.timeStamp = null;
 			$(el).val("").blur();
 		}
 	},
-	
+
 	ensureFocusAndCaptureTimeStamp: function (eventTarget) {
-		var input = $(this.element).find("input[name=logEntry]");
-			if(input != $(eventTarget)) {
-				this.timeStamp = this.timeStamp || window.timer.elapsed();
-				input.focus();
-			}
+		var input = this.inputEl;
+		if (input != $(eventTarget)) {
+			this.timeStamp = this.timeStamp || window.timer.elapsed();
+			input.focus();
+		}
 	},
 
 	"form submit": function (el, ev) {
 		ev.preventDefault();
-		var input = $(el).find("input[name=logEntry]");
+		var input = this.inputEl;
 		var value = input.val();
-		if(value == "") {
+		if (value == "") {
 			return;
 		}
 
 		var content = value;
 		var tag = null;
-		if(value[0] == "/") {
+		if (value[0] == "/") {
 			var endOfTag = value.indexOf(" ");
-			if(endOfTag < 0) {
+			if (endOfTag < 0) {
 				tag = value.substring(1, value.length);
 				content = "";
 			} else {
@@ -108,9 +112,9 @@ $.Controller('Usablog.EntryInputController', {
 			}
 		}
 
-		if(content == "")
+		if (content == "")
 			return;
-		
+
 		this.addLogEntry(content, this.timeStamp, tag);
 
 		this.timeStamp = null;
