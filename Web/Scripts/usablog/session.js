@@ -103,8 +103,13 @@ $.Controller('Usablog.SessionController', {
 
 
 		this.model.bind("change", function (ev,attr,how,newVal,oldVal) {
-			if(attr === "status")
+			if(attr === "status") {
 				self.renderPanel();
+				
+				if(newVal === "InProgress") {
+					self.showInput();
+				}
+			}
 		});
 		
 		this.bodyKeypressBinding = $("body").bind("keypress", function (event) {
