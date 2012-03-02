@@ -79,7 +79,9 @@ $.Controller("Usablog.SessionFindingsController", {
 		var finding = new Usablog.Finding({name:name, studyId:studyId });
 		finding.save();
 
-		input.val();
+		this.findings.push(finding);
+
+		input.val("");
 	}
 });
 
@@ -97,7 +99,7 @@ $.Controller("Usablog.SessionFindingController", {
 	".finding-name click" : function (el, ev) {
 		var controller = this;
 		var element = $(el);
-		var entriesElement = $("#" + element.data("finding-id"));
+		var entriesElement = $(".finding-entries", this.element);
 
 		if(controller.shown) {
 			entriesElement.collapse('hide');
