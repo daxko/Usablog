@@ -38,6 +38,7 @@
 		Usablog.Session.getSessionTimeUrl = "@Url.Action("GetElapsedTime", new { id = Model.Id })";
 		
 		Usablog.Finding.indexUrl = "@Url.Action("Index", "Findings", new { studyId = Model.StudyId })";
+		Usablog.Finding.detailsUrl = "@Url.Action("Details", "Findings")";
 		
 		$.ajax({
 			url:"@Url.Action("Tags", "LogEntry")",

@@ -1,12 +1,8 @@
 {{each findings}}
-<div class="accordion-group">
-	<div class="accordion-heading" data-toggle="collapse" data-target="#finding-${$value.id.replace('/','')}">${$value.name}</div>
-	<div id="finding-${$value.id.replace('/','')}" class="accordion-body collapse">
-		<div class="accordion-inner">
-			{{each $value.logEntryIds}}
-				${$value}
-			{{/each}}
-		</div>
+<div class="accordion-group findings-list">
+	<div class="accordion-heading finding-name" data-finding-id="${$value.id.replace('/','-')}" >${$value.name}</div>
+	<div id="${$value.id.replace('/','-')}" class="accordion-body collapse">
+		
 	</div>
 </div>
 {{/each}}
