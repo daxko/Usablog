@@ -75,3 +75,7 @@ table.sessions-list tr td:first-child
 .ui-selected {
 	background-color: #999999;
 }
+
+.finding-entries {
+	background-color: #FFFFFF;
+}
