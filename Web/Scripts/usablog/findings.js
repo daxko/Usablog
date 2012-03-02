@@ -31,9 +31,7 @@ $.Controller("Usablog.SessionFindingsController", {
 			cache:false,
 			success: function (data) {
 				controller.findings = new Usablog.FindingCollection(data);
-				console.log(controller.findings);
 				$.View("//scripts/usablog/sessionFindings.tmpl", { findings:controller.findings }, function (result) {
-					console.log(result);
 					controller.element.html(result);
 				});
 			}
