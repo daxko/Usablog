@@ -131,7 +131,9 @@ $.Controller('Usablog.SessionController', {
 	},
 
 	renderFindings: function () {
-		this.timerEl.html("<h2>Findings</h2> stuff happens here.");
+		var findingsDiv = $("<div/>");
+		this.timerEl.html(findingsDiv);
+		new Usablog.SessionFindingsController(findingsDiv, { studyId: this.model.studyId });
 	},
 	
 	disableLogEntry: function () {

@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/timer.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/session.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/logEntry.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/findings.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/Scripts/usablog/logEntryCollection.js")"></script>
 	@if (Model.Status == SessionStatus.InProgress)
 	{
@@ -35,6 +36,8 @@
 		Usablog.Session.startUrl = "@Url.Action("Start", new { id = Model.Id })";
 		Usablog.Session.endUrl = "@Url.Action("Stop", new { id = Model.Id })";
 		Usablog.Session.getSessionTimeUrl = "@Url.Action("GetElapsedTime", new { id = Model.Id })";
+		
+		Usablog.Finding.indexUrl = "@Url.Action("Index", "Findings", new { studyId = Model.StudyId })";
 		
 		$.ajax({
 			url:"@Url.Action("Tags", "LogEntry")",

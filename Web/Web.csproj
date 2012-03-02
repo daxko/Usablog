@@ -154,6 +154,7 @@
     <Content Include="Scripts\jquery.mvc.js" />
     <Content Include="Scripts\jquery.tmpl.min.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\usablog\findings.js" />
     <Content Include="Scripts\usablog\logEntryCollection.js" />
     <Content Include="Scripts\usablog\logEntry.js" />
     <Content Include="Scripts\usablog\logentry.tmpl">
