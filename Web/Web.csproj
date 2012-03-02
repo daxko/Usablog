@@ -101,6 +101,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ElmahController.cs" />
     <Compile Include="Controllers\AuthorizedControllerWithSession.cs" />
+    <Compile Include="Controllers\FindingsController.cs" />
     <Compile Include="Controllers\LogEntryController.cs" />
     <Compile Include="EnsureHandledErrorsGetLogged.cs" />
     <Compile Include="EntityJsonActionResult.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Controllers\StudiesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Models\Finding.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

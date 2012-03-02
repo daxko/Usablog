@@ -26,6 +26,10 @@ namespace Web.Controllers
 				.Where(x => x.StudyId == id)
 				.OrderByDescending(x => x.StartDate)
 				.ToList();
+
+			ViewBag.Findings = DocumentSession.Query<Finding>()
+				.Where(f => f.StudyId == id);
+
 			return View(study);
 		}
 

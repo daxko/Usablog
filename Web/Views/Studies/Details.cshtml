@@ -16,7 +16,21 @@
 <div class="row">
 	<section name="themes" class="span7">
 		<div class="well">
-			<h2>Themes</h2>
+			<h2>
+				Findings
+			</h2>
+			<table class="findings-list table table-striped">
+				<tbody>
+				@foreach (Finding finding in ViewBag.Findings)
+				{
+					<tr>
+						<td>
+							@(finding.Name)
+						</td>
+					</tr>
+				}
+				</tbody>
+			</table>
 		</div>
 	</section>
 	<section name="sessions" class="span5">
