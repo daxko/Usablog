@@ -13,7 +13,8 @@ namespace Web.Controllers
         public ActionResult Index(string studyId)
         {
         	var findings = DocumentSession.Query<Finding>()
-        		.Where(f => f.StudyId == studyId);
+        		.Where(f => f.StudyId == studyId)
+				.OrderBy(f=>f.Id);
 
             return new EntityJsonActionResult(findings);
         }
