@@ -1,5 +1,8 @@
 <div class="accordion-inner finding-entries">
 	{{each entries}}
-	<div class="finding-entry">${$value.content}</div>
+	<div class="finding-entry">
+		<span class="entry-time">${Usablog.Timer.formatElapsed($value.elapsedMillisecondsSinceSessionStart)}</span>
+		<span class="entry-content ${$value.tag}" title="${Usablog.LogEntry.formatTag($value.tag)}">${$value.content}</span>
+	</div>
 	{{/each}}
 </div>
