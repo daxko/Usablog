@@ -90,6 +90,11 @@ $.Controller('Usablog.EntryInputController', {
 			controller.inputEl = $(controller.element).find("input[name=logEntry]");
 			controller.inputEl.focus();
 		});
+		
+
+		this.bodyKeypressBinding = $("body").bind("keypress", function (event) {
+			controller.keyPressed(event);
+		});
 	},
 
 	"input[name=logEntry] keyup": function (el, ev) {
@@ -105,6 +110,17 @@ $.Controller('Usablog.EntryInputController', {
 			this.timeStamp = null;
 			this.element.trigger("inputCancelled");
 		}
+	},
+
+	keyPressed: function (event) {
+		if (!event.which)
+			return true;
+		
+		if (event.which == 13 || event.which == 47) {
+			this.ensureFocusAndCaptureTimeStamp(event.target);
+		}
+
+		return true;
 	},
 
 	ensureFocusAndCaptureTimeStamp: function (eventTarget) {
