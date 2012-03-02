@@ -1,4 +1,9 @@
-<h2>Findings</h2>
+<h2>
+	Findings
+</h2>
+<form>
+	<input type="text" name="findingEntry" class="findingEntry" placeholder="Enter a new finding"></input>
+</form>
 {{each findings}}
 <div class="accordion-group findings-list">
 	<div class="accordion-heading finding-name" data-finding-id="${$value.id.replace('/','-')}" >${$value.name}</div>

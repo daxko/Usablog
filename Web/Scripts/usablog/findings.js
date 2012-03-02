@@ -2,11 +2,25 @@
 // static
 {
 	indexUrl: "",
-	detailsUrl: ""
+	detailsUrl: "",
+	createUrl: ""
 }, 
 //prototype
 {
-	
+	save:function () {
+		var finding = this;
+		$.ajax({
+			url:this.Class.createUrl,
+			type:'POST',
+			dataType:'json',
+			contentType:'application/json',
+			data: JSON.stringify(this.serialize()),
+			error: function (jqXHR, textStatus, errorThrown){},
+			success: function (data, textStatus, jqXHR) {
+				finding.init(data);
+			}
+		});
+	}
 });
 
 $.Observe.List("Usablog.FindingCollection", {
@@ -24,6 +38,8 @@ $.Controller("Usablog.SessionFindingsController", {
 	
 	init: function (raw_el, opts) {
 
+		this.studyId = opts.studyId;
+		
 		var controller = this;
 		$.ajax({
 			url:Usablog.Finding.indexUrl,
@@ -64,6 +80,17 @@ $.Controller("Usablog.SessionFindingsController", {
 				});
 			}
 		});
+	},
+	
+	"form submit": function (el, ev) {
+		ev.preventDefault();
+		var input = $("input[name=findingEntry]", $(el));
+		var name = input.val();
+		var studyId = this.studyId;
 
+		var finding = new Usablog.Finding({name:name, studyId:studyId });
+		finding.save();
+
+		input.val();
 	}
 });
