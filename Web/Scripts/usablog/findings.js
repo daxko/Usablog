@@ -23,17 +23,6 @@
 	}
 });
 
-$.Observe.List("Usablog.FindingCollection", {
-	
-	init:function (jsonData) {
-		for(var i in jsonData) {
-			var json = jsonData[i];
-			var finding = new Usablog.Finding(json);
-			this.push(finding);
-		}
-	}
-});
-
 $.Controller("Usablog.SessionFindingsController", {
 	
 	init: function (raw_el, opts) {
@@ -47,37 +36,36 @@ $.Controller("Usablog.SessionFindingsController", {
 			dataType: 'json',
 			cache:false,
 			success: function (data) {
-				controller.findings = new Usablog.FindingCollection(data);
-				controller.render();
+				console.log(data);
+				controller.findings = new $.Observe.List();
+				
+				controller.findings.bind("add", function (ev, newItems) {
+					for (var i in newItems)
+						controller.findingAdded(newItems[i]);
+				});
+
+				controller.render(data);
 			}
 		});
 	},
 	
-	render: function () {
+	findingAdded: function(finding) {
+		console.log("rendering ", finding);
+		var findingElement = $("<div></div>");
+
+		this.element.append(findingElement);
+		new Usablog.SessionFindingController(findingElement, { model: finding });
+	},
+	
+	render: function (data) {
 		var controller = this;
 		$.View("//scripts/usablog/sessionFindings.tmpl", { findings:controller.findings }, function (result) {
 			controller.element.html(result);
-		});
-	},
-	
-	".finding-name click" : function (el, ev) {
-		var element = $(el);
-
-		var rawId = element.data("finding-id");
-		id = rawId.replace("-", "/");
-		$.ajax({
-			url:Usablog.Finding.detailsUrl,
-			data: {id:id},
-			type: 'GET',
-			dataType: 'json',
-			cache:false,
-			success: function (data) {
-				var entriesElement = $("#" + rawId);
-				
-				$.View("//scripts/usablog/sessionFindingEntries.tmpl", { entries:data }, function (result) {
-					entriesElement.html(result);
-					entriesElement.collapse('show');
-				});
+			
+			for(var i in data) {
+				var json = data[i];
+				var finding = new Usablog.Finding(json);
+				controller.findings.push(finding);
 			}
 		});
 	},
@@ -92,5 +80,38 @@ $.Controller("Usablog.SessionFindingsController", {
 		finding.save();
 
 		input.val();
+	}
+});
+
+$.Controller("Usablog.SessionFindingController", {
+	init:function (raw_el, opts) {
+
+		this.model = opts.model;
+		var controller = this;
+		this.element.addClass("accordion-group");
+		$.View("//scripts/usablog/sessionFinding.tmpl", this.model, function (result) {
+			controller.element.html(result);
+		});
+	},
+	
+	".finding-name click" : function (el, ev) {
+		var element = $(el);
+
+		id = this.model.id;
+		$.ajax({
+			url:Usablog.Finding.detailsUrl,
+			data: {id:id},
+			type: 'GET',
+			dataType: 'json',
+			cache:false,
+			success: function (data) {
+				var entriesElement = $("#" + element.data("finding-id"));
+				
+				$.View("//scripts/usablog/sessionFindingEntries.tmpl", { entries:data }, function (result) {
+					entriesElement.html(result);
+					entriesElement.collapse('show');
+				});
+			}
+		});
 	}
 });
