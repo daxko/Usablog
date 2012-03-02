@@ -108,6 +108,8 @@ $.Controller('Usablog.SessionController', {
 				
 				if(newVal === "InProgress") {
 					self.showInput();
+				} else if(newVal === "Ended") {
+					self.enableSelectingLog();
 				}
 			}
 		});
@@ -126,13 +128,17 @@ $.Controller('Usablog.SessionController', {
 		});
 			
 		if (this.model.attr('status') === "Ended") {
-			this.logEl.selectable({
+			this.enableSelectingLog();
+		}
+	},
+	
+	enableSelectingLog: function () {
+		this.logEl.selectable({
 				selected:function (event, ui) {
 					var element = $(ui.selected);
 					element.trigger("selected");
 				}
 			});
-		}
 	},
 	
 	"li wasselected": function (el, ev, logEntry) {
