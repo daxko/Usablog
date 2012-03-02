@@ -28,8 +28,10 @@ $.Model('Usablog.LogEntry',
 		if(content == "")
 			content = tag;
 		
-		if(!Usablog.LogEntry.tagIsValid(tag))
+		if(!Usablog.LogEntry.tagIsValid(tag)) {
 			tag = null;
+			content = value;
+		}
 		
 		return new Usablog.LogEntry({ content:content, tag:tag, elapsedMillisecondsSinceSessionStart: timeStamp });
 	},
