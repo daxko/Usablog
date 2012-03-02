@@ -104,7 +104,6 @@ $.Controller("Usablog.SessionFindingController", {
 		for(var i in this.selectedEntries) {
 			var entry = this.selectedEntries[i];
 			
-			console.log(this.selectedEntries[i], this.model);
 			// add to the finding on the server
 			$.ajax({
 				url:Usablog.Finding.addEntryUrl,
