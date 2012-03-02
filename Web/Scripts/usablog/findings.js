@@ -3,7 +3,8 @@
 {
 	indexUrl: "",
 	detailsUrl: "",
-	createUrl: ""
+	createUrl: "",
+	addEntryUrl: ""
 }, 
 //prototype
 {
@@ -28,6 +29,7 @@ $.Controller("Usablog.SessionFindingsController", {
 	init: function (raw_el, opts) {
 
 		this.studyId = opts.studyId;
+		this.selectedEntries = opts.selectedEntries;
 		
 		var controller = this;
 		$.ajax({
@@ -36,7 +38,6 @@ $.Controller("Usablog.SessionFindingsController", {
 			dataType: 'json',
 			cache:false,
 			success: function (data) {
-				console.log(data);
 				controller.findings = new $.Observe.List();
 				
 				controller.findings.bind("add", function (ev, newItems) {
@@ -50,11 +51,10 @@ $.Controller("Usablog.SessionFindingsController", {
 	},
 	
 	findingAdded: function(finding) {
-		console.log("rendering ", finding);
 		var findingElement = $("<div></div>");
 
 		this.element.append(findingElement);
-		new Usablog.SessionFindingController(findingElement, { model: finding });
+		new Usablog.SessionFindingController(findingElement, { model: finding, selectedEntries: this.selectedEntries });
 	},
 	
 	render: function (data) {
@@ -89,11 +89,38 @@ $.Controller("Usablog.SessionFindingController", {
 	init:function (raw_el, opts) {
 
 		this.model = opts.model;
+		this.selectedEntries = opts.selectedEntries;
+		
 		var controller = this;
 		this.element.addClass("accordion-group");
 		$.View("//scripts/usablog/sessionFinding.tmpl", this.model, function (result) {
 			controller.element.html(result);
 		});
+	},
+	
+	".add-selected-entries click": function (el, ev) {
+		ev.preventDefault();
+		
+		for(var i in this.selectedEntries) {
+			var entry = this.selectedEntries[i];
+			
+			console.log(this.selectedEntries[i], this.model);
+			// add to the finding on the server
+			$.ajax({
+				url:Usablog.Finding.addEntryUrl,
+				type:'POST',
+				dataType:'json',
+				contentType:'application/json',
+				data: JSON.stringify({id:this.model.id, logEntryId: entry.id}),
+				error: function (jqXHR, textStatus, errorThrown){},
+				success: function (data, textStatus, jqXHR) {
+					
+				}
+			});
+			
+			// add to the DOM (show me)
+			
+		}
 	},
 	
 	".finding-name click" : function (el, ev) {
@@ -106,7 +133,6 @@ $.Controller("Usablog.SessionFindingController", {
 			controller.shown = false;
 			return;
 		}
-
 		
 		id = this.model.id;
 		$.ajax({

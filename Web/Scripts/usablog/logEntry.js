@@ -75,8 +75,17 @@ $.Controller('Usablog.LogEntryController', {
 		var controller = this;
 		$.View("//scripts/usablog/logentry.tmpl", this.model, function (result) {
 			controller.element.html(result);
+
+			controller.element.bind("selected", function (event) {
+				controller.selected(event);
+			});
 		});
+	},
+	
+	selected: function (event) {
+		this.element.trigger("wasselected", this.model);
 	}
+	
 });
 
 $.Controller('Usablog.EntryInputController', {

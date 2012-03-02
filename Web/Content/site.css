@@ -71,3 +71,7 @@ table.sessions-list tr td:first-child
 .log-entry .entry-content {
 	
 }
+
+.ui-selected {
+	background-color: #999999;
+}

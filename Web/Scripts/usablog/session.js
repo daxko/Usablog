@@ -76,6 +76,8 @@ $.Controller('Usablog.SessionController', {
 
 	init: function (raw_el, opts) {
 		this.model = opts.model;
+		this.selectedEntries = [];
+		
 		this.logEntries = new $.Observe.List();
 
 		var self = this;
@@ -96,11 +98,7 @@ $.Controller('Usablog.SessionController', {
 				self.hideInput();
 			});
 
-			self.resizeLog();
-			
-			$(window).resize(function() {
-				self.resizeLog();
-			});
+			self.prepareLog();
 		});
 
 
@@ -112,6 +110,28 @@ $.Controller('Usablog.SessionController', {
 		this.bodyKeypressBinding = $("body").bind("keypress", function (event) {
 			self.keyPressed(event);
 		});
+	},
+	
+	prepareLog:function () {
+		this.resizeLog();
+
+		var self = this;
+		$(window).resize(function() {
+			self.resizeLog();
+		});
+			
+		if (this.model.attr('status') === "Ended") {
+			this.logEl.selectable({
+				selected:function (event, ui) {
+					var element = $(ui.selected);
+					element.trigger("selected");
+				}
+			});
+		}
+	},
+	
+	"li wasselected": function (el, ev, logEntry) {
+		this.selectedEntries.push(logEntry);
 	},
 
 	renderPanel: function () {
@@ -133,7 +153,7 @@ $.Controller('Usablog.SessionController', {
 	renderFindings: function () {
 		var findingsDiv = $("<div/>");
 		this.timerEl.html(findingsDiv);
-		new Usablog.SessionFindingsController(findingsDiv, { studyId: this.model.studyId });
+		new Usablog.SessionFindingsController(findingsDiv, { studyId: this.model.studyId, selectedEntries:this.selectedEntries });
 	},
 	
 	disableLogEntry: function () {

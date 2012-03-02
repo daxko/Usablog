@@ -40,6 +40,7 @@
 		Usablog.Finding.indexUrl = "@Url.Action("Index", "Findings", new { studyId = Model.StudyId })";
 		Usablog.Finding.detailsUrl = "@Url.Action("Details", "Findings")";
 		Usablog.Finding.createUrl = "@Url.Action("Create", "Findings", new { sessionId = Model.Id })";
+		Usablog.Finding.addEntryUrl = "@Url.Action("AddEntry", "Findings")";
 		
 		$.ajax({
 			url:"@Url.Action("Tags", "LogEntry")",
