@@ -95,8 +95,17 @@ $.Controller("Usablog.SessionFindingController", {
 	},
 	
 	".finding-name click" : function (el, ev) {
+		var controller = this;
 		var element = $(el);
+		var entriesElement = $("#" + element.data("finding-id"));
 
+		if(controller.shown) {
+			entriesElement.collapse('hide');
+			controller.shown = false;
+			return;
+		}
+
+		
 		id = this.model.id;
 		$.ajax({
 			url:Usablog.Finding.detailsUrl,
@@ -105,11 +114,11 @@ $.Controller("Usablog.SessionFindingController", {
 			dataType: 'json',
 			cache:false,
 			success: function (data) {
-				var entriesElement = $("#" + element.data("finding-id"));
 				
 				$.View("//scripts/usablog/sessionFindingEntries.tmpl", { entries:data }, function (result) {
 					entriesElement.html(result);
 					entriesElement.collapse('show');
+					controller.shown = true;
 				});
 			}
 		});
