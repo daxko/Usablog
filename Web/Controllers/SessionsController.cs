@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
+using Raven.Client.Linq;
 using Web.Models;
 
 namespace Web.Controllers
@@ -15,6 +17,20 @@ namespace Web.Controllers
 			var session = DocumentSession.Include<Session>(s => s.StudyId).Load(id);
 			ViewBag.Study = DocumentSession.Load<Study>(session.StudyId);
 			return View(session);
+		}
+
+		//
+		// GET: /Sessions/Export/5
+		public ActionResult Export(string id)
+		{
+			var session = DocumentSession.Load<Session>(id);
+			var entries = DocumentSession.Query<LogEntry>()
+				.Where(x => x.SessionId == id)
+				.OrderBy(x => x.ElapsedMillisecondsSinceSessionStart)
+				.Take(1024)
+				.ToList();
+
+			return new SessionLogCsvActionResult(session.DisplayName().Replace("@", "-"), entries);
 		}
 
 		//
