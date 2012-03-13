@@ -63,9 +63,32 @@ table.sessions-list tr td:first-child
 	font-weight: bold;
 }
 
+.label-f {
+  background-color: #ccc;
+}
+.label-r {
+  background-color: #333;
+}
+.label-s {
+  background-color: #000;
+}
+.label-q {
+  background-color: #468847;
+}
+.label-e {
+  background-color: #b94a48;
+}
+.label-a {
+  background-color: #b94a48;
+}
+.label-b {
+  background-color: #b94a48;
+}
+
 .log-entry .entry-time {
 	color: #666666;
 	font-size: 0.9em;
+	width:;
 }
 
 .log-entry .entry-content {
