@@ -5,3 +5,4 @@ _ReSharper.*
 */obj/*
 */bin/*
 !/lib/*/bin/*
+.DS_Store

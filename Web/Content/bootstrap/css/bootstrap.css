@@ -3198,6 +3198,27 @@ a.thumbnail:hover {
 .label-info:hover {
   background-color: #2d6987;
 }
+.label-f {
+  background-color: #ccc;
+}
+.label-r {
+  background-color: #333;
+}
+.label-s {
+  background-color: #000;
+}
+.label-q {
+  background-color: #468847;
+}
+.label-e {
+  background-color: #b94a48;
+}
+.label-a {
+  background-color: #b94a48;
+}
+.label-b {
+  background-color: #b94a48;
+}
 @-webkit-keyframes progress-bar-stripes {
   from {
     background-position: 0 0;

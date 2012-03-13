@@ -1,7 +1,7 @@
 <div class="log-entry">
 	<span class="entry-time">${Usablog.Timer.formatElapsed(elapsedMillisecondsSinceSessionStart)}</span>
 	{{if Usablog.LogEntry.tagIsValid(tag)}}
-	<span class="entry-tag ${tag}">(${Usablog.LogEntry.formatTag(tag)})</span>
+	<span class="entry-tag label-${tag} label">${Usablog.LogEntry.formatTag(tag)}</span>
 	{{/if}}
 	<span class="entry-content ${tag}" title="${Usablog.LogEntry.formatTag(tag)}">${content}</span>
 </div>
